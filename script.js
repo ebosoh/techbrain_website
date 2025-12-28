@@ -174,7 +174,7 @@ if (bookingForm) {
         submitBtn.disabled = true;
 
         // Replace this URL with your deployed Web App URL
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzJqvstgRDPdMalAvPiOHNbafA_am0umkyCpO77f5GfGKHhsOUp68Pc1ESfNGddbT9Q/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzRpBu0c_K7FJJCEvkpjKB54idI-WTflsxSF7lnIDQZbnEp7UFELDtXgEjQRzOw0AM/exec';
 
         fetch(scriptURL, {
             method: 'POST',
