@@ -778,6 +778,10 @@ footer {
         display: none;
     }
 
+    .nav-container .btn {
+        display: none;
+    }
+
     .hamburger {
         display: block;
     }
