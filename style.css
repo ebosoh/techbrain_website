@@ -811,3 +811,203 @@ footer {
         border-bottom: 1px solid var(--glass-border);
     }
 }
+
+/* --- Service Detail Modal --- */
+/* --- Service Detail Modal --- */
+/* --- Service Detail Modal --- */
+.service-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    /* 1) Lighter Overlay for visibility behind */
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    /* Light blur on the full screen */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.service-modal.show {
+    opacity: 1;
+}
+
+.service-modal .modal-content {
+    width: 95%;
+    max-width: 1400px;
+    height: 85vh;
+    max-height: 900px;
+
+    /* 2) True Glassmorphism for the window */
+    background: rgba(16, 33, 62, 0.65);
+    /* More transparent blue */
+    backdrop-filter: blur(20px);
+    /* Strong blur BEHIND the window */
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    /* Crisper border */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    animation: zoomIn 0.4s ease forwards;
+}
+
+.modal-body-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.modal-image-container {
+    flex: 2;
+    /* Increased from 1.2 to show more of the image */
+    background: rgba(0, 0, 0, 0.2);
+    /* Slight tint instead of black */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.modal-text-content {
+    flex: 0.8;
+    /* Reduced from 1 to make text panel narrower */
+    padding: 60px;
+    text-align: left;
+    overflow-y: auto;
+    /* 3) Transparent background so the glass window shows through */
+    background: transparent;
+}
+
+.modal-text-content h2 {
+    color: var(--color-accent);
+    margin-bottom: 25px;
+    font-size: 2.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 20px;
+    font-family: var(--font-heading);
+    text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+}
+
+.modal-text-content p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    color: #e6f1ff;
+    /* Brighter text for better contrast on glass */
+    font-size: 1.15rem;
+    font-weight: 400;
+}
+
+/* Scrollbar for modal text */
+.modal-text-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-text-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.modal-text-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.modal-text-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.close-modal-service {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: 300;
+    cursor: pointer;
+    z-index: 20;
+    transition: var(--transition);
+    background: rgba(255, 255, 255, 0.1);
+    /* Glass button */
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.close-modal-service:hover {
+    color: var(--color-accent);
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+@media (max-width: 992px) {
+    .service-modal .modal-content {
+        flex-direction: column;
+        height: 90vh;
+        width: 95%;
+        overflow-y: auto;
+        /* Allow full modal scroll on mobile */
+    }
+
+    .modal-body-content {
+        flex-direction: column;
+        overflow: visible;
+        /* Let children expand */
+    }
+
+    .modal-image-container {
+        flex: none;
+        height: 35vh;
+        min-height: 250px;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-text-content {
+        flex: none;
+        /* Auto height based on content */
+        padding: 30px;
+        height: auto;
+    }
+
+    .modal-text-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .close-modal-service {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 30px;
+        background: rgba(0, 0, 0, 0.5);
+        /* darker bg for close button on image */
+    }
+}
