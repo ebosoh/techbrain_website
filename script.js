@@ -303,41 +303,41 @@ if (bookingForm) {
             title: 'NLP Solutions',
             description: `<p><strong>Unlock the Power of Language.</strong> Our Natural Language Processing (NLP) solutions go beyond simple chatbots. We build intelligent systems that understand context, sentiment, and intent in real-time.</p>
                           <p>Imagine a customer support system that handles 80% of inquiries automatically, or a legal analysis tool that scans thousands of compliance documents in seconds. Our NLP agents can draft emails, summarize meetings, and even translate local dialects to bridge communication gaps across Africa.</p>`,
-            image: 'images/ecommerce_support_ai_african_1767033018478.png'
+            image: 'ecommerce_support_ai_african_1767033018478.png'
         },
 
         'booking': {
             title: 'Booking Conversational AI',
             description: `<p><strong>24/7 Intelligent Scheduling.</strong> Automate appointment booking with our advanced conversational AI that handles voice and text interactions seamlessly.</p>
                           <p>A medical clinic reduced admin time by 60% using our Appointment Bot (pictured). It negotiates times, sends reminders, and syncs with doctors' calendars 24/7, ensuring no slot is wasted and patients are always seen on time.</p>`,
-            image: 'images/african_receptionist_robot.png?v=2'
+            image: 'african_receptionist_robot.png?v=2'
         },
 
         'webapps': {
             title: 'Web Applications',
             description: `<p><strong>Next-Gen Digital Platforms.</strong> We don't just build websites; we build powerful, scalable web applications that run your business logic in the cloud.</p>
                           <p>Whether it's a fintech dashboard, a telemedicine portal, or an e-learning platform, our web apps are built with modern frameworks (React/Next.js) for speed, security, and scalability. Provide your users with a app-like experience directly in their browser.</p>`,
-            image: 'images/web_applications_1767032802435.png'
+            image: 'web_applications_1767032802435.png'
         },
         'websites': {
             title: 'Business Websites',
             description: `<p><strong>Your Digital Headquarters.</strong> In the digital age, your website is your most important asset. We create stunning, high-performance websites that convert visitors into clients.</p>
                           <p>A professional website establishes trust. We use modern design principles (Glassmorphism, 3D elements) to ensure you stand out from competitors. Our sites are SEO-optimized, mobile-responsive, and integrated with your CRM for lead capture.</p>`,
-            image: 'images/business_websites_1767032768560.png'
+            image: 'business_websites_1767032768560.png'
         },
 
         'social': {
             title: 'Social Media Autopilot',
             description: `<p><strong>Engage Everywhere, Instantly.</strong> Manage your brand presence across all platforms with a single AI agent.</p>
                           <p>Our Social Media Autopilot doesn't just post; it replies to comments, engages with trends, and analyzes sentiment. It's like having a dedicated 24/7 social media manager that ensures your brand voice is always active and relevant.</p>`,
-            image: 'images/social_media_android_african_1767033054481.png'
+            image: 'social_media_android_african_1767033054481.png'
         },
 
         'agent': {
             title: 'Custom AI Agents',
             description: `<p><strong>Your Dedicated Digital Workforce.</strong> Need a specialized solution? We build custom AI agents trained on your specific data and workflows.</p>
                           <p>From internal HR bots to complex supply chain predictors, we design the "brain" of your operation. These agents learn from your processes and improve over time, becoming an indispensable asset to your company.</p>`,
-            image: 'images/collaborative_ai_agents.png'
+            image: 'collaborative_ai_agents.png'
         }
     };
 
