@@ -310,27 +310,34 @@ if (bookingForm) {
             title: 'Booking Conversational AI',
             description: `<p><strong>24/7 Intelligent Scheduling.</strong> Automate appointment booking with our advanced conversational AI that handles voice and text interactions seamlessly.</p>
                           <p>A medical clinic reduced admin time by 60% using our Appointment Bot (pictured). It negotiates times, sends reminders, and syncs with doctors' calendars 24/7, ensuring no slot is wasted and patients are always seen on time.</p>`,
-            image: 'african_receptionist_robot.png?v=2'
+            image: 'african_receptionist_robot.png'
+        },
+
+        'chatbots': {
+            title: 'AI Chatbots',
+            description: `<p><strong>Intelligent Customer Engagement.</strong> Deploy conversational AI agents that understand context, provide instant answers, and deliver exceptional customer experiences around the clock.</p>
+                          <p>Our AI chatbots handle customer inquiries, product recommendations, troubleshooting, and support tickets with human-like understanding. They learn from every interaction, integrate with your existing systems, and can escalate complex issues to human agents when needed. Reduce response times from hours to seconds while maintaining a personal touch.</p>`,
+            image: 'ai_chatbot_interface.png'
         },
 
         'webapps': {
             title: 'Web Applications',
             description: `<p><strong>Next-Gen Digital Platforms.</strong> We don't just build websites; we build powerful, scalable web applications that run your business logic in the cloud.</p>
                           <p>Whether it's a fintech dashboard, a telemedicine portal, or an e-learning platform, our web apps are built with modern frameworks (React/Next.js) for speed, security, and scalability. Provide your users with a app-like experience directly in their browser.</p>`,
-            image: 'web_applications_1767032802435.png'
+            image: 'kenya_semiconductors_webapp.png'
         },
         'websites': {
             title: 'Business Websites',
             description: `<p><strong>Your Digital Headquarters.</strong> In the digital age, your website is your most important asset. We create stunning, high-performance websites that convert visitors into clients.</p>
                           <p>A professional website establishes trust. We use modern design principles (Glassmorphism, 3D elements) to ensure you stand out from competitors. Our sites are SEO-optimized, mobile-responsive, and integrated with your CRM for lead capture.</p>`,
-            image: 'business_websites_1767032768560.png'
+            image: 'africa_fintech_website.png'
         },
 
         'social': {
             title: 'Social Media Autopilot',
             description: `<p><strong>Engage Everywhere, Instantly.</strong> Manage your brand presence across all platforms with a single AI agent.</p>
                           <p>Our Social Media Autopilot doesn't just post; it replies to comments, engages with trends, and analyzes sentiment. It's like having a dedicated 24/7 social media manager that ensures your brand voice is always active and relevant.</p>`,
-            image: 'social_media_android_african_1767033054481.png'
+            image: 'social_media_ai_dashboard.png'
         },
 
         'agent': {
@@ -352,6 +359,7 @@ if (bookingForm) {
         let key = '';
         if (title.includes('NLP')) key = 'nlp';
         else if (title.includes('Booking')) key = 'booking';
+        else if (title.includes('Chatbot')) key = 'chatbots';
 
         else if (title.includes('Web App')) key = 'webapps';
         else if (title.includes('Business Web')) key = 'websites';
