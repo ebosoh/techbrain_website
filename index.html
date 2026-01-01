@@ -33,6 +33,7 @@
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
                 <a href="#services">Services</a>
+                <a href="#portfolio">Portfolio</a>
                 <a href="#technologies">Technologies</a>
                 <a href="#clients">Clients</a>
                 <a href="#contact">Contact</a>
@@ -158,6 +159,124 @@
                         <p>Scalable, secure, and dynamic web applications tailored to streamline your business
                             operations.</p>
                         <a href="#" class="learn-more">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section">
+        <div class="container">
+            <h2 class="section-title text-center">Our Portfolio</h2>
+            <p class="section-subtitle text-center">Explore our innovative web applications and client success stories
+            </p>
+
+            <!-- Tab Navigation -->
+            <div class="portfolio-tabs">
+                <button class="portfolio-tab active" data-tab="webapps">
+                    <i class="fa-solid fa-code"></i> Web Applications
+                </button>
+                <button class="portfolio-tab" data-tab="websites">
+                    <i class="fa-solid fa-globe"></i> Client Websites
+                </button>
+            </div>
+
+            <!-- Web Applications Tab Content -->
+            <div class="portfolio-content active" id="webapps-content">
+                <div class="portfolio-grid">
+                    <!-- myDOC Application Card -->
+                    <div class="portfolio-card glass-panel">
+                        <div class="portfolio-logo">
+                            <img src="mydoc_logo.png" alt="myDOC Logo">
+                        </div>
+                        <h3>myDOC</h3>
+                        <p>Comprehensive digital clinic management system for modern healthcare facilities</p>
+                        <button class="btn btn-primary glow-effect" onclick="openLoginModal('mydoc')">
+                            <i class="fa-solid fa-flask"></i> Test Application
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Client Websites Tab Content -->
+            <div class="portfolio-content" id="websites-content">
+                <div class="portfolio-grid client-grid">
+                    <!-- TechBrain -->
+                    <div class="client-card glass-panel">
+                        <div class="client-info">
+                            <h3>TechBrain</h3>
+                            <p class="client-location"><i class="fa-solid fa-location-dot"></i> Nairobi, Kenya</p>
+                        </div>
+                        <a href="https://www.techbrain.africa/" target="_blank" class="btn btn-outline">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> View Website
+                        </a>
+                    </div>
+
+                    <!-- Benno AI -->
+                    <div class="client-card glass-panel">
+                        <div class="client-info">
+                            <h3>Benno AI</h3>
+                            <p class="client-location"><i class="fa-solid fa-location-dot"></i> Berlin, Germany</p>
+                        </div>
+                        <a href="https://benno-ai.com/" target="_blank" class="btn btn-outline">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> View Website
+                        </a>
+                    </div>
+
+                    <!-- EUSMS -->
+                    <div class="client-card glass-panel">
+                        <div class="client-info">
+                            <h3>EUSMS</h3>
+                            <p class="client-location"><i class="fa-solid fa-location-dot"></i> Nairobi, Kenya</p>
+                        </div>
+                        <a href="https://eusms.org/" target="_blank" class="btn btn-outline">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> View Website
+                        </a>
+                    </div>
+
+                    <!-- Tyrrst -->
+                    <div class="client-card glass-panel">
+                        <div class="client-info">
+                            <h3>Tyrrst</h3>
+                            <p class="client-location"><i class="fa-solid fa-location-dot"></i> Oslo, Norway</p>
+                        </div>
+                        <a href="https://tyrrst.com/" target="_blank" class="btn btn-outline">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> View Website
+                        </a>
+                    </div>
+
+                    <!-- JITADC -->
+                    <div class="client-card glass-panel">
+                        <div class="client-info">
+                            <h3>JITADC</h3>
+                            <p class="client-location"><i class="fa-solid fa-location-dot"></i> Nairobi, Kenya</p>
+                        </div>
+                        <a href="https://jitadc.com/" target="_blank" class="btn btn-outline">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> View Website
+                        </a>
+                    </div>
+
+                    <!-- Pinnacle Dental Centre -->
+                    <div class="client-card glass-panel">
+                        <div class="client-info">
+                            <h3>Pinnacle Dental Centre</h3>
+                            <p class="client-location"><i class="fa-solid fa-location-dot"></i> Nairobi, Kenya</p>
+                        </div>
+                        <a href="https://www.pinnacledentalcentre.com/" target="_blank" class="btn btn-outline">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> View Website
+                        </a>
+                    </div>
+
+                    <!-- Dr. Diana Dental Clinic -->
+                    <div class="client-card glass-panel">
+                        <div class="client-info">
+                            <h3>Dr. Diana Dental Clinic</h3>
+                            <p class="client-location"><i class="fa-solid fa-location-dot"></i> Eldoret, Kenya</p>
+                        </div>
+                        <a href="https://drdianaandassociatesdentalclinic.co.ke/" target="_blank"
+                            class="btn btn-outline">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> View Website
+                        </a>
                     </div>
                 </div>
             </div>
@@ -405,6 +524,49 @@
                     <div id="modal-service-description">
                         <!-- Dynamic Content -->
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Instructions Modal -->
+    <div id="login-modal" class="service-modal">
+        <div class="glass-panel modal-content login-modal-content">
+            <span class="close-login-modal">&times;</span>
+            <div class="modal-body-content">
+                <div class="login-modal-header">
+                    <i class="fa-solid fa-key"></i>
+                    <h2 id="login-app-name">Application Login</h2>
+                </div>
+                <div class="login-instructions">
+                    <p id="login-instructions-text"></p>
+
+                    <div class="credentials-box">
+                        <h3><i class="fa-solid fa-user-lock"></i> Test Credentials</h3>
+                        <div class="credential-item">
+                            <label><i class="fa-solid fa-envelope"></i> Email:</label>
+                            <div class="credential-value">
+                                <code id="login-email"></code>
+                                <button class="copy-btn" onclick="copyToClipboard('login-email')" title="Copy email">
+                                    <i class="fa-solid fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="credential-item">
+                            <label><i class="fa-solid fa-lock"></i> Password:</label>
+                            <div class="credential-value">
+                                <code id="login-password"></code>
+                                <button class="copy-btn" onclick="copyToClipboard('login-password')"
+                                    title="Copy password">
+                                    <i class="fa-solid fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a id="open-app-btn" href="" target="_blank" class="btn btn-primary glow-effect full-width">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Application
+                    </a>
                 </div>
             </div>
         </div>

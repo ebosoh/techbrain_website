@@ -415,4 +415,109 @@ if (bookingForm) {
         }
     });
 
+    /* --- Portfolio Section --- */
+    // Web Applications Data
+    const webApplications = {
+        'mydoc': {
+            name: 'myDOC',
+            url: 'https://script.google.com/macros/s/AKfycbyMX1q7M14WhXsskbElNNJqVwIlyMJ1aZOfZx5WL8GwqdUz5sblYrEzOiOeUhk0yBYuCA/exec',
+            email: 'techbrainai.test@gmail.com',
+            password: 'apptest12345',
+            instructions: 'Welcome to myDOC - a comprehensive digital clinic management system. Use the test credentials below to explore the application. After logging in, you\'ll have access to patient management, appointment scheduling, billing, and more.'
+        }
+    };
+
+    // Tab Switching
+    const portfolioTabs = document.querySelectorAll('.portfolio-tab');
+    const portfolioContents = document.querySelectorAll('.portfolio-content');
+
+    portfolioTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetTab = tab.getAttribute('data-tab');
+
+            // Remove active class from all tabs and contents
+            portfolioTabs.forEach(t => t.classList.remove('active'));
+            portfolioContents.forEach(c => c.classList.remove('active'));
+
+            // Add active class to clicked tab and corresponding content
+            tab.classList.add('active');
+            document.getElementById(`${targetTab}-content`).classList.add('active');
+        });
+    });
+
+    // Login Modal Functionality
+    const loginModal = document.getElementById('login-modal');
+    const closeLoginModal = document.querySelector('.close-login-modal');
+
+    window.openLoginModal = function (appKey) {
+        const app = webApplications[appKey];
+        if (!app) return;
+
+        // Populate modal content
+        document.getElementById('login-app-name').innerText = `${app.name} Login`;
+        document.getElementById('login-instructions-text').innerText = app.instructions;
+        document.getElementById('login-email').innerText = app.email;
+        document.getElementById('login-password').innerText = app.password;
+        document.getElementById('open-app-btn').href = app.url;
+
+        // Show modal
+        loginModal.style.display = 'flex';
+        setTimeout(() => {
+            loginModal.classList.add('show');
+        }, 10);
+    };
+
+    // Close login modal
+    if (closeLoginModal) {
+        closeLoginModal.addEventListener('click', () => {
+            loginModal.classList.remove('show');
+            setTimeout(() => {
+                loginModal.style.display = 'none';
+            }, 300);
+        });
+    }
+
+    // Close on outside click
+    window.addEventListener('click', (e) => {
+        if (e.target == loginModal) {
+            loginModal.classList.remove('show');
+            setTimeout(() => {
+                loginModal.style.display = 'none';
+            }, 300);
+        }
+    });
+
+    // Copy to Clipboard Function
+    window.copyToClipboard = function (elementId) {
+        const element = document.getElementById(elementId);
+        const text = element.innerText;
+
+        // Create temporary textarea
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+
+        // Select and copy
+        textarea.select();
+        document.execCommand('copy');
+
+        // Remove textarea
+        document.body.removeChild(textarea);
+
+        // Visual feedback
+        const copyBtn = event.target.closest('.copy-btn');
+        const originalHTML = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        copyBtn.style.background = 'var(--color-accent)';
+        copyBtn.style.color = 'var(--color-primary)';
+
+        setTimeout(() => {
+            copyBtn.innerHTML = originalHTML;
+            copyBtn.style.background = 'transparent';
+            copyBtn.style.color = 'var(--color-secondary)';
+        }, 2000);
+    };
+
 });
