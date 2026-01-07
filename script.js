@@ -149,68 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Auto rotate
     setInterval(nextSlide, 5000);
 
-    /* ---// Booking Form Handling
-const bookingForm = document.getElementById('booking-form');
-const modal = document.getElementById('modal');
-const closeModal = document.querySelector('.close-modal');
-
-if (bookingForm) {
-    bookingForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        // Collect form data
-        const formData = {
-            name: document.getElementById('name').value,
-            company: document.getElementById('company').value,
-            email: document.getElementById('email').value,
-            service: document.getElementById('service').value,
-            date: document.getElementById('date').value,
-            message: document.getElementById('message').value
-        };
-
-        const submitBtn = bookingForm.querySelector('button');
-        const originalBtnText = submitBtn.innerText;
-        submitBtn.innerText = 'Sending...';
-        submitBtn.disabled = true;
-
-        // Replace this URL with your deployed Web App URL
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzRpBu0c_K7FJJCEvkpjKB54idI-WTflsxSF7lnIDQZbnEp7UFELDtXgEjQRzOw0AM/exec';
-
-        fetch(scriptURL, {
-            method: 'POST',
-            mode: 'no-cors', // Important for GAS Web Apps if not using strict CORS headers setup
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(response => {
-            // Reset form
-            bookingForm.reset();
-            // Show Success Modal
-            modal.style.display = 'flex';
-            
-            submitBtn.innerText = originalBtnText;
-            submitBtn.disabled = false;
-        })
-        .catch(error => {
-            console.error('Error!', error.message);
-            // Fallback for demo purposes even if fetch fails due to 'no-cors' opacity or invalid URL
-            modal.style.display = 'flex';
-            submitBtn.innerText = originalBtnText;
-            submitBtn.disabled = false;
-        });
-    });
-}
-    closeModal.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (e) => {
-        if (e.target == modal) {
-            modal.style.display = 'none';
-        }
-    });
+    /* --- Booking Form Handling (Commented Out)
+    const bookingForm = document.getElementById('booking-form');
+    // ... booking form logic would go here if active ...
+    */
 
     /* --- Particle Background (Canvas) --- */
     const canvas = document.getElementById('particle-canvas');
@@ -345,8 +287,48 @@ if (bookingForm) {
             description: `<p><strong>Your Dedicated Digital Workforce.</strong> Need a specialized solution? We build custom AI agents trained on your specific data and workflows.</p>
                           <p>From internal HR bots to complex supply chain predictors, we design the "brain" of your operation. These agents learn from your processes and improve over time, becoming an indispensable asset to your company.</p>`,
             image: 'collaborative_ai_agents.png'
+        },
+
+        'sweetstay': {
+            title: 'SweetStay - Air BnB Booking System',
+            description: `<p><strong>Air BnB Booking System</strong></p>
+                          <p>SweetStay is a modern, lightweight booking management system designed specifically for Airbnbs, guest houses, and serviced apartments. By leveraging a powerful "serverless" architecture, it offers a premium, mobile-first booking experience for guests and a comprehensive administration dashboard for hosts—all without the monthly subscription fees of traditional SaaS platforms.</p>
+                          <p>Transform your property management with a system that combines the visual appeal of a luxury hotel site with the automated efficiency of a modern tech stack.</p>
+                          <h4>Key Features</h4>
+                          <ul style="list-style-type: disc; margin-left: 20px; color: var(--color-text-muted);">
+                              <li>Stunning Mobile-First Design</li>
+                              <li>Smart Booking Engine</li>
+                              <li>Location integration (Google Maps)</li>
+                              <li>Intelligent Automation</li>
+                              <li>Double-Booking Protection</li>
+                              <li>Zero-Maintenance Database</li>
+                              <li>Automated Calendar Sync</li>
+                              <li>Powerful Admin Dashboard</li>
+                              <li>No Monthly Fees</li>
+                              <li>Lightweight & Fast</li>
+                          </ul>`,
+            image: 'sweetstay_logo.png'
         }
     };
+
+    function openServiceModal(key) {
+        const data = serviceData[key];
+        if (!data) return;
+
+        if (modalTitle) modalTitle.innerText = data.title;
+        if (modalDesc) modalDesc.innerHTML = data.description;
+        if (modalImage) modalImage.src = data.image;
+
+        if (serviceModal) {
+            serviceModal.style.display = 'flex';
+            // Trigger reflow
+            serviceModal.offsetHeight;
+            serviceModal.classList.add('show');
+        }
+    }
+
+    // Expose for HTML access
+    window.openServiceModal = openServiceModal;
 
     // Attach Click Listeners
     document.querySelectorAll('.service-card').forEach(card => {
@@ -367,6 +349,7 @@ if (bookingForm) {
         else if (title.includes('Social')) key = 'social';
 
         else if (title.includes('Agent')) key = 'agent';
+        else if (title.includes('SweetStay')) key = 'sweetstay';
         else if (title.includes('Other')) key = 'agent'; // Fallback
 
         if (key) {
