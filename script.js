@@ -503,4 +503,70 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
     };
 
+
+
+    /* --- 3D Rotating Carousel Logic --- */
+    const carouselScene = document.querySelector('.scene');
+    const carousel3D = document.querySelector('.carousel-3d');
+
+    if (carousel3D) {
+        const cells = carousel3D.querySelectorAll('.client-card');
+        const cellCount = cells.length;
+        // Width of card (460) + Gap (40) = 500
+        const effectiveWidth = 500;
+        const theta = 360 / cellCount;
+        const radius = Math.round((effectiveWidth / 2) / Math.tan(Math.PI / cellCount));
+
+        // Apply initial transforms to distribute cards
+        cells.forEach((cell, i) => {
+            const cellAngle = theta * i;
+            // Push out by radius and rotate
+            cell.style.transform = `rotateY(${cellAngle}deg) translateZ(${radius}px)`;
+        });
+
+        // Initialize carousel position - push back by radius so front face is at Z=0
+        // And rotate
+        let currAngle = 0;
+        let isPaused = false;
+
+        function rotate3DCarousel() {
+            if (!isPaused) {
+                currAngle -= 0.2; // Slower rotation for larger circle
+            }
+            // Rotate the whole carousel
+            // TranslateZ moves the center of rotation back
+            carousel3D.style.transform = `translateZ(-${radius}px) rotateY(${currAngle}deg)`;
+            requestAnimationFrame(rotate3DCarousel);
+        }
+
+        // Pause on hover
+        carouselScene.addEventListener('mouseenter', () => {
+            isPaused = true;
+        });
+
+        carouselScene.addEventListener('mouseleave', () => {
+            isPaused = false;
+        });
+
+        // Click to navigate
+        cells.forEach(cell => {
+            cell.style.cursor = 'pointer'; // Ensure pointer cursor
+            cell.addEventListener('click', (e) => {
+                // If specific button clicked, let it handle it (standard propagation)
+                // But typically the button is inside.
+                // We want to open the link found in the card.
+                const link = cell.querySelector('a');
+                if (link && link.href) {
+                    // Check if user clicked the link itself to avoid double open
+                    if (e.target.closest('a') === link) return;
+
+                    window.open(link.href, link.target || '_self');
+                }
+            });
+        });
+
+        // Start animation
+        rotate3DCarousel();
+    }
+
 });

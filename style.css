@@ -1323,3 +1323,72 @@ footer {
         width: 100%;
     }
 }
+
+/* --- 3D Portfolio Carousel --- */
+.scene {
+    margin: 100px auto;
+    /* More vertical space */
+    width: 500px;
+    /* Increased width */
+    height: 400px;
+    /* Increased height */
+    position: relative;
+    perspective: 1500px;
+    /* Adjusted perspective for larger scene */
+}
+
+.carousel-3d {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+}
+
+.carousel-3d .client-card {
+    position: absolute;
+    width: 460px;
+    /* Much larger width */
+    height: 320px;
+    /* Much larger height */
+    left: 20px;
+    /* Center in 500px container */
+    top: 20px;
+    /* Gradient to simulate curvature/lighting */
+    background: linear-gradient(90deg, rgba(5, 15, 30, 0.95), rgba(10, 25, 47, 0.9), rgba(5, 15, 30, 0.95));
+    border: 1px solid var(--color-secondary);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    /* Deeper shadow */
+    border-radius: 20px;
+    /* Smoother corners */
+    cursor: pointer;
+    /* Clickable indication */
+}
+
+.carousel-3d .client-card:hover {
+    box-shadow: 0 0 40px rgba(0, 255, 204, 0.5);
+    border-color: var(--color-accent);
+}
+
+.carousel-3d .client-card h3 {
+    font-size: 1.8rem;
+    /* Larger font */
+    margin-bottom: 10px;
+}
+
+.carousel-3d .client-card .client-location {
+    font-size: 1.1rem;
+    /* Larger font */
+    margin-bottom: 25px;
+}
+
+.carousel-3d .client-card .btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+}
