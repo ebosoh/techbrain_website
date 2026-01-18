@@ -121,33 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     animateServices();
 
 
-    /* --- Client Carousel --- */
-    const track = document.getElementById('client-track');
-    const slides = Array.from(track.children);
-    const nextBtn = document.getElementById('next-slide');
-    const prevBtn = document.getElementById('prev-slide');
-    let currentSlideIndex = 0;
 
-    function updateSlide(index) {
-        slides.forEach(slide => slide.classList.remove('active'));
-        slides[index].classList.add('active');
-    }
-
-    function nextSlide() {
-        currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-        updateSlide(currentSlideIndex);
-    }
-
-    function prevSlide() {
-        currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
-        updateSlide(currentSlideIndex);
-    }
-
-    nextBtn.addEventListener('click', nextSlide);
-    prevBtn.addEventListener('click', prevSlide);
-
-    // Auto rotate
-    setInterval(nextSlide, 5000);
 
     /* --- Booking Form Handling (Commented Out)
     const bookingForm = document.getElementById('booking-form');
