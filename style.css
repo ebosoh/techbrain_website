@@ -778,6 +778,13 @@ footer {
         display: none;
     }
 
+    .hero-section {
+        height: auto;
+        min-height: 100vh;
+        overflow: visible;
+        padding-bottom: 60px;
+    }
+
     h2 {
         font-size: 2rem;
     }
