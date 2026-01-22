@@ -194,13 +194,15 @@ nav {
 
 /* Hero Section */
 .hero-section {
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
-    padding-top: 80px;
+    padding-top: 100px;
+    padding-bottom: 120px;
 }
 
 #particle-canvas {
@@ -247,6 +249,7 @@ nav {
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -771,7 +774,9 @@ footer {
 /* Responsive */
 @media (max-width: 768px) {
     h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        word-wrap: break-word;
+        /* Ensure long words break if necessary */
     }
 
     h1 br {
@@ -783,6 +788,23 @@ footer {
         min-height: 100vh;
         overflow: visible;
         padding-bottom: 60px;
+        padding-left: 15px;
+        /* Ensure some side padding */
+        padding-right: 15px;
+    }
+
+    .hero-btns {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+        /* Limit width of stacked buttons */
+        margin: 0 auto;
+        /* Center them */
+    }
+
+    .hero-btns .btn {
+        width: 100%;
+        /* Full width of the container */
     }
 
     h2 {
@@ -1424,4 +1446,20 @@ footer {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+}
+
+@media (max-width: 600px) {
+    .scene {
+        transform: scale(0.6);
+        margin-top: -60px;
+        margin-bottom: -60px;
+        transform-origin: center center;
+        /* Ensure container handles the scaled content properly */
+        width: 100%;
+    }
+
+    .carousel-3d {
+        /* Ensure touch interactions work well */
+        touch-action: pan-y;
+    }
 }
