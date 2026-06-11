@@ -225,10 +225,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 ctx.fillText(char, x, y);
 
-                // Speed variables based on colors
-                let speed = 10;
-                if (colors[i] === 'red') speed = 25; // Hacker speed
-                if (colors[i] === 'cyan') speed = 15; // TechBrain override
+                // Speed variables based on colors (lowered to improve readability)
+                let speed = 2;
+                if (colors[i] === 'red') speed = 5; // Hacker speed
+                if (colors[i] === 'cyan') speed = 3; // TechBrain override
 
                 yPositions[i] += speed;
 
