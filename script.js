@@ -128,7 +128,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let width, height;
         let yPositions = [];
         let colors = [];
-        let columnChars = [];
+        let columnStreams = [];
+        let speeds = [];
+        let trailLengths = [];
         let columns = 0;
 
         function resize() {
@@ -137,7 +139,11 @@ document.addEventListener('DOMContentLoaded', () => {
             columns = Math.floor(width / 25) + 1;
             yPositions = Array(columns).fill(0).map(() => Math.random() * height);
             colors = Array(columns).fill('normal');
-            columnChars = Array(columns).fill(0).map(() => Math.random() < 0.5 ? '0' : '1');
+            columnStreams = Array(columns).fill(0).map(() => 
+                Array(150).fill(0).map(() => Math.random() < 0.5 ? '0' : '1')
+            );
+            speeds = Array(columns).fill(0).map(() => Math.random() * 1.5 + 1.2); // Base speed: 1.2 to 2.7
+            trailLengths = Array(columns).fill(0).map(() => Math.floor(Math.random() * 8) + 10); // Length: 10 to 18
         }
 
         window.addEventListener('resize', resize);
@@ -204,39 +210,70 @@ document.addEventListener('DOMContentLoaded', () => {
         cycleThreatTimeline();
 
         function drawMatrix() {
-            // Draw fade transparency for code trails
-            ctx.fillStyle = 'rgba(10, 25, 47, 0.18)';
+            // Clear canvas fully to draw clean, sharp trails without blur
+            ctx.fillStyle = 'rgba(10, 25, 47, 1.0)';
             ctx.fillRect(0, 0, width, height);
 
             ctx.font = 'bold 20px Courier New';
 
             for (let i = 0; i < columns; i++) {
-                const char = columnChars[i] || (Math.random() < 0.5 ? '0' : '1');
-                const x = i * 25;
-                const y = yPositions[i];
+                const leadY = yPositions[i];
+                const trailLength = trailLengths[i];
+                const stream = columnStreams[i];
+                const gridIndex = Math.floor(leadY / 22);
 
-                if (colors[i] === 'red') {
-                    ctx.fillStyle = '#ff3333';
-                } else if (colors[i] === 'cyan') {
-                    ctx.fillStyle = '#00d8ff';
-                } else if (colors[i] === 'green') {
-                    ctx.fillStyle = '#00ffcc';
-                } else {
-                    ctx.fillStyle = Math.random() < 0.5 ? 'rgba(0, 180, 216, 0.6)' : 'rgba(0, 255, 204, 0.6)';
+                // Draw the vertical streak of characters
+                for (let j = 0; j < trailLength; j++) {
+                    const charY = leadY - (j * 22);
+                    if (charY < -20 || charY > height + 20) continue;
+
+                    // Stable index mapping to keep digits static in screen space as they fall
+                    const charIdx = ((gridIndex - j) % 150 + 150) % 150;
+                    const char = stream[charIdx] || '0';
+
+                    // Opacity gradient along the trail
+                    let opacity = 1 - (j / trailLength);
+                    if (opacity < 0.15) opacity = 0.15;
+
+                    if (colors[i] === 'red') {
+                        ctx.fillStyle = `rgba(255, 51, 51, ${opacity})`;
+                    } else if (colors[i] === 'cyan') {
+                        ctx.fillStyle = `rgba(0, 216, 255, ${opacity})`;
+                    } else if (colors[i] === 'green') {
+                        ctx.fillStyle = `rgba(0, 255, 204, ${opacity})`;
+                    } else {
+                        // Normal state: semi-transparent green/blue mix
+                        const isGreen = (i % 2 === 0);
+                        if (isGreen) {
+                            ctx.fillStyle = `rgba(0, 255, 204, ${opacity * 0.55})`;
+                        } else {
+                            ctx.fillStyle = `rgba(0, 180, 216, ${opacity * 0.55})`;
+                        }
+                    }
+
+                    // Bright white lead character
+                    if (j === 0) {
+                        ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+                    }
+
+                    ctx.fillText(char, i * 25, charY);
                 }
 
-                ctx.fillText(char, x, y);
-
-                // Speed variables based on colors (lowered to improve readability)
-                let speed = 2;
-                if (colors[i] === 'red') speed = 5; // Hacker speed
-                if (colors[i] === 'cyan') speed = 3; // TechBrain override
+                // Speed adjustments based on color states
+                let speedMultiplier = 1;
+                if (colors[i] === 'red') speedMultiplier = 2.2;
+                else if (colors[i] === 'cyan') speedMultiplier = 1.4;
+                const speed = speeds[i] * speedMultiplier;
 
                 yPositions[i] += speed;
 
-                if (yPositions[i] > height && Math.random() > 0.975) {
-                    yPositions[i] = 0;
-                    columnChars[i] = Math.random() < 0.5 ? '0' : '1';
+                // Reset column when it fully flows off screen
+                const maxLimit = height + trailLength * 22;
+                if (yPositions[i] > maxLimit) {
+                    yPositions[i] = -30;
+                    columnStreams[i] = Array(150).fill(0).map(() => Math.random() < 0.5 ? '0' : '1');
+                    speeds[i] = Math.random() * 1.5 + 1.2;
+                    trailLengths[i] = Math.floor(Math.random() * 8) + 10;
                 }
             }
             requestAnimationFrame(drawMatrix);
