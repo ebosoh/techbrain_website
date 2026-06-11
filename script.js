@@ -128,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let width, height;
         let yPositions = [];
         let colors = [];
+        let columnChars = [];
         let columns = 0;
 
         function resize() {
@@ -136,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
             columns = Math.floor(width / 25) + 1;
             yPositions = Array(columns).fill(0).map(() => Math.random() * height);
             colors = Array(columns).fill('normal');
+            columnChars = Array(columns).fill(0).map(() => Math.random() < 0.5 ? '0' : '1');
         }
 
         window.addEventListener('resize', resize);
@@ -209,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.font = 'bold 20px Courier New';
 
             for (let i = 0; i < columns; i++) {
-                const char = Math.random() < 0.5 ? '0' : '1';
+                const char = columnChars[i] || (Math.random() < 0.5 ? '0' : '1');
                 const x = i * 25;
                 const y = yPositions[i];
 
@@ -234,6 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (yPositions[i] > height && Math.random() > 0.975) {
                     yPositions[i] = 0;
+                    columnChars[i] = Math.random() < 0.5 ? '0' : '1';
                 }
             }
             requestAnimationFrame(drawMatrix);
