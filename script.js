@@ -10,9 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
             navbar.style.background = 'rgba(10, 25, 47, 0.95)';
+            navbar.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
         } else {
             navbar.classList.remove('scrolled');
             navbar.style.background = 'var(--glass-bg)';
+            navbar.style.boxShadow = 'none';
         }
     });
 
@@ -26,19 +28,30 @@ document.addEventListener('DOMContentLoaded', () => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             navLinks.classList.remove('active');
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         });
     });
 
     /* --- Typewriter Effect --- */
     const textElement = document.getElementById('typewriter');
-    const words = ["We build", "We automate", "We predict", "We transform"];
+    const words = [
+        "Pioneering Intelligent Solutions",
+        "Enterprise Cybersecurity Defense",
+        "AWS, GCP, & Azure Cloud Integration",
+        "AI Agent & RAG Architectures",
+        "Biometric Identity & Forensics"
+    ];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    let typeSpeed = 100;
+    let typeSpeed = 80;
 
     function type() {
         const currentWord = words[wordIndex];
@@ -46,16 +59,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isDeleting) {
             textElement.textContent = currentWord.substring(0, charIndex - 1);
             charIndex--;
-            typeSpeed = 50;
+            typeSpeed = 40;
         } else {
             textElement.textContent = currentWord.substring(0, charIndex + 1);
             charIndex++;
-            typeSpeed = 100;
+            typeSpeed = 80;
         }
 
         if (!isDeleting && charIndex === currentWord.length) {
             isDeleting = true;
-            typeSpeed = 2000; // Pause at end
+            typeSpeed = 2500; // Pause at end
         } else if (isDeleting && charIndex === 0) {
             isDeleting = false;
             wordIndex = (wordIndex + 1) % words.length;
@@ -64,147 +77,269 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setTimeout(type, typeSpeed);
     }
-    type();
+    if (textElement) type();
 
     /* --- Stats Counter Animation --- */
     const statsSection = document.querySelector('.about-stats');
     const statNumbers = document.querySelectorAll('.stat-number');
     let started = false;
 
-    const statsObserver = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && !started) {
-            statNumbers.forEach(num => {
-                const target = +num.getAttribute('data-target');
-                const duration = 2000; // ms
-                const increment = target / (duration / 16); // 60fps
+    if (statsSection && statNumbers.length > 0) {
+        const statsObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !started) {
+                statNumbers.forEach(num => {
+                    const target = +num.getAttribute('data-target');
+                    const duration = 2000; // ms
+                    const increment = target / (duration / 16); // 60fps
 
-                let current = 0;
-                const updateCount = () => {
-                    current += increment;
-                    if (current < target) {
-                        num.innerText = Math.ceil(current);
-                        requestAnimationFrame(updateCount);
-                    } else {
-                        num.innerText = target;
-                    }
-                };
-                updateCount();
-            });
-            started = true;
-        }
-    });
-    statsObserver.observe(statsSection);
-
-    /* --- Services Carousel (Infinite Auto-Scroll) --- */
-    const servicesTrack = document.getElementById('services-track');
-    // Clone children for infinite seamless loop
-    const serviceCards = Array.from(servicesTrack.children);
-    serviceCards.forEach(card => {
-        const clone = card.cloneNode(true);
-        servicesTrack.appendChild(clone);
-    });
-
-    // JS animation for smoother control than CSS keyframes on dynamic widths
-    let scrollPos = 0;
-    const speed = 1; // Pixels per frame
-
-    function animateServices() {
-        scrollPos += speed;
-        // If we've scrolled past the first set of cards, reset to 0
-        // We assume the track is now double length. Reset when half is scrolled.
-        if (scrollPos >= servicesTrack.scrollWidth / 2) {
-            scrollPos = 0;
-        }
-        servicesTrack.style.transform = `translateX(-${scrollPos}px)`;
-        requestAnimationFrame(animateServices);
+                    let current = 0;
+                    const updateCount = () => {
+                        current += increment;
+                        if (current < target) {
+                            num.innerText = Math.ceil(current);
+                            requestAnimationFrame(updateCount);
+                        } else {
+                            num.innerText = target;
+                        }
+                    };
+                    updateCount();
+                });
+                started = true;
+            }
+        });
+        statsObserver.observe(statsSection);
     }
-    animateServices();
 
-
-
-
-    /* --- Booking Form Handling (Commented Out)
-    const bookingForm = document.getElementById('booking-form');
-    // ... booking form logic would go here if active ...
-    */
+    /* --- Client Logo Ticker Cloner (Infinite Ribbon) --- */
+    const tickerTrack = document.querySelector('.ticker-track');
+    if (tickerTrack) {
+        const items = Array.from(tickerTrack.children);
+        // Duplicate once for seamless sliding
+        items.forEach(item => {
+            const clone = item.cloneNode(true);
+            tickerTrack.appendChild(clone);
+        });
+    }
 
     /* --- Particle Background (Canvas) --- */
     const canvas = document.getElementById('particle-canvas');
-    const ctx = canvas.getContext('2d');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
 
-    let width, height;
-    let particles = [];
-
-    function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-    }
-
-    window.addEventListener('resize', resize);
-    resize();
-
-    class Particle {
-        constructor() {
-            this.x = Math.random() * width;
-            this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 1; // Velocity
-            this.vy = (Math.random() - 0.5) * 1;
-            this.size = Math.random() * 2 + 1;
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
         }
 
-        update() {
-            this.x += this.vx;
-            this.y += this.vy;
+        window.addEventListener('resize', resize);
+        resize();
 
-            // Bounce screen edges
-            if (this.x < 0 || this.x > width) this.vx *= -1;
-            if (this.y < 0 || this.y > height) this.vy *= -1;
-        }
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = (Math.random() - 0.5) * 0.8;
+                this.size = Math.random() * 2 + 1;
+            }
 
-        draw() {
-            ctx.fillStyle = 'rgba(0, 255, 204, 0.5)';
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-        }
-    }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
 
-    function initParticles() {
-        particles = [];
-        const numParticles = Math.min(width < 768 ? 50 : 100, 150);
-        for (let i = 0; i < numParticles; i++) {
-            particles.push(new Particle());
-        }
-    }
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
 
-    function animateParticles() {
-        ctx.clearRect(0, 0, width, height);
-
-        for (let i = 0; i < particles.length; i++) {
-            particles[i].update();
-            particles[i].draw();
-
-            // Draw connections
-            for (let j = i; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < 150) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(0, 180, 216, ${1 - distance / 150})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.stroke();
-                }
+            draw() {
+                ctx.fillStyle = 'rgba(0, 255, 204, 0.4)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
             }
         }
-        requestAnimationFrame(animateParticles);
+
+        function initParticles() {
+            particles = [];
+            const numParticles = Math.min(width < 768 ? 40 : 80, 120);
+            for (let i = 0; i < numParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 180, 216, ${0.4 * (1 - distance / 150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
     }
 
-    initParticles();
-    animateParticles();
+    /* --- Enterprise Services tabbed catalog data --- */
+    const enterpriseServices = {
+        'cyber': {
+            title: 'Enterprise Cybersecurity Solutions',
+            mockupImage: 'cybersecurity_dashboard.webp',
+            mockupDesc: 'Enterprise-grade threat intelligence and unified security defense dashboard, designed to detect, isolate, and mitigate threats in real time.',
+            list: [
+                { icon: 'fa-shield-halved', title: 'Unified EDR/XDR', desc: 'Extended detection and response across endpoints, networks, and cloud infrastructures.' },
+                { icon: 'fa-user-lock', title: 'Identity & Access (IAM)', desc: 'Zero-trust identity verification, Single Sign-On, and multi-factor access protocols.' },
+                { icon: 'fa-bug', title: 'Penetration Testing', desc: 'Active white-hat hacking assessments to uncover system and application vulnerabilities.' },
+                { icon: 'fa-network-wired', title: 'Managed SOC (24/7)', desc: 'Continuous security operations monitoring, triage, and threat mitigation.' },
+                { icon: 'fa-cloud-shield', title: 'Cloud Security (CSPM)', desc: 'Posture management and vulnerability scanning for multi-cloud deployments.' },
+                { icon: 'fa-mask', title: 'Threat Hunting', desc: 'Proactive search for advanced persistent threats embedded in network structures.' },
+                { icon: 'fa-triangle-exclamation', title: 'Incident Response', desc: 'Rapid containment, malware analysis, and disaster recovery following security breaches.' },
+                { icon: 'fa-file-shield', title: 'Compliance & Audits', desc: 'Aligning enterprise security frameworks with ISO 27001, GDPR, and local regulations.' },
+                { icon: 'fa-user-shield', title: 'Security Training', desc: 'Phishing simulations and cybersecurity training programs for organizational staff.' },
+                { icon: 'fa-key', title: 'Data Encryption', desc: 'End-to-end data encryption protocols for storage databases and transit pipelines.' }
+            ]
+        },
+        'cloud': {
+            title: 'Multi-Cloud Enterprise Scale',
+            mockupImage: 'cloud_dashboard.webp',
+            mockupDesc: 'Seamless multi-cloud dashboard connecting Amazon Web Services (AWS), Google Cloud Platform (GCP), and Microsoft Azure deployments.',
+            list: [
+                { icon: 'fa-cloud-arrow-up', title: 'Cloud Migration', desc: 'Zero-downtime database and system migrations to public or hybrid clouds.' },
+                { icon: 'fa-cubes', title: 'Kubernetes & DevOps', desc: 'Infrastructure as Code (IaC) and CI/CD pipelines for automated scaling.' },
+                { icon: 'fa-chart-line', title: 'Cost Optimization', desc: 'FinOps audits to eliminate cloud waste and scale resource usage efficiently.' },
+                { icon: 'fa-server', title: 'AWS Cloud Architecture', desc: 'High-availability architecture design using Amazon Web Services.' },
+                { icon: 'fa-brands fa-google', title: 'Google Cloud Platform', desc: 'AI-centric cloud environments and big data integrations using GCP.' },
+                { icon: 'fa-brands fa-microsoft', title: 'Microsoft Azure', desc: 'Enterprise active directory integrations and hybrid cloud systems via Azure.' }
+            ]
+        },
+        'forensics': {
+            title: 'Digital Forensics & Biometrics',
+            mockupImage: 'biometrics_mobile.webp',
+            mockupDesc: 'Holographic device scanner UI illustrating multi-factor identity authorization and digital evidence extraction protocols.',
+            list: [
+                { icon: 'fa-fingerprint', title: 'Biometric Auth', desc: 'Implementing iris scan, facial recognition, and fingerprint authentication nodes.' },
+                { icon: 'fa-laptop-file', title: 'Computer Forensics', desc: 'Post-incident hard drive replication and forensic recovery of lost data.' },
+                { icon: 'fa-mobile-screen-button', title: 'Mobile Forensics', desc: 'Extracting data, messages, and application logs from encrypted mobile devices.' },
+                { icon: 'fa-database', title: 'Database Cryptanalysis', desc: 'Recovering corrupted or ransomware-locked database records securely.' },
+                { icon: 'fa-envelope-open-text', title: 'Network & Email Forensics', desc: 'Tracing headers and routing nodes to isolate source of malicious traffic.' },
+                { icon: 'fa-address-card', title: 'Biometric KYC', desc: 'Automated identity verification systems for banking and security portals.' },
+                { icon: 'fa-user-secret', title: 'Insider Threat Auditing', desc: 'Tracking user behaviors to identify and contain internal data leak points.' },
+                { icon: 'fa-gavel', title: 'Legal Expert Testimony', desc: 'Preparing chain-of-custody documentation and expert testimony for courts.' }
+            ]
+        },
+        'surveillance': {
+            title: 'Surveillance & Access Control',
+            mockupImage: 'surveillance_tablet.webp',
+            mockupDesc: 'Smart control panel depicting license plate tracking, movement alarms, and physical lock systems on a central interface.',
+            list: [
+                { icon: 'fa-video', title: 'IP CCTV Networks', desc: 'Designing and deploying high-definition network camera surveillance.' },
+                { icon: 'fa-brain', title: 'AI Video Analytics', desc: 'Machine vision overlays for motion detection, loitering, and virtual fences.' },
+                { icon: 'fa-car', title: 'License Plate (LPR)', desc: 'Automated vehicle tracking, gate opening, and registration plate logging.' },
+                { icon: 'fa-door-closed', title: 'Biometric Doors', desc: 'Access controllers integrated with magnetic locks and readers.' },
+                { icon: 'fa-barcode', title: 'Visitor Management', desc: 'Digital check-ins, guest badge printing, and tracking analytics.' },
+                { icon: 'fa-walkie-talkie', title: 'Perimeter Intrusion', desc: 'Seismic and fiber-optic perimeter detection systems.' },
+                { icon: 'fa-road', title: 'Smart Gates & Barriers', desc: 'RFID vehicle tags and automated rising barriers for parking.' },
+                { icon: 'fa-fire-extinguisher', title: 'Fire System Integration', desc: 'Linking alarms and door releases for secure emergency exits.' },
+                { icon: 'fa-server', title: 'Data Center Access', desc: 'Dual-factor airlocks, rack biometrics, and physical cages.' },
+                { icon: 'fa-bell', title: 'Alarm Monitoring', desc: 'Unified central station software mapping alert locations.' }
+            ]
+        },
+        'networking': {
+            title: 'Networking & Data Centre',
+            mockupImage: 'networking_laptop.webp',
+            mockupDesc: 'Enterprise network diagnostics console showing throughput, SD-WAN topologies, and fiber-optic backbone health.',
+            list: [
+                { icon: 'fa-network-wired', title: 'SD-WAN Architectures', desc: 'Designing highly resilient enterprise WAN layouts with auto-failover.' },
+                { icon: 'fa-bezier-curve', title: 'Data Center Design', desc: 'Building high-availability server rooms with redundancy (N+1 power/cooling).' },
+                { icon: 'fa-wifi', title: 'High-Density Wi-Fi', desc: 'Enterprise wireless surveys, mapping, and secure guest access.' },
+                { icon: 'fa-route', title: 'Structured Cabling', desc: 'Deploying high-speed Cat6A/fiber backbones and patch panels.' },
+                { icon: 'fa-shield-halved', title: 'Firewall Architectures', desc: 'Configuring core BGP routing tables and next-gen hardware firewalls.' }
+            ]
+        },
+        'ai': {
+            title: 'Artificial Intelligence Solutions',
+            mockupImage: 'ai_agent_dashboard.webp',
+            mockupDesc: 'Holographic display showing an active generative AI agent workflow, combining RAG architectures and model pipelines.',
+            list: [
+                { icon: 'fa-brain', title: 'Custom LLMs & RAG', desc: 'Retrieval Augmented Generation pipelines for searching local data corpuses.' },
+                { icon: 'fa-eye', title: 'Computer Vision Systems', desc: 'Image classification, object counting, and quality control systems.' },
+                { icon: 'fa-chart-pie', title: 'Predictive Analytics', desc: 'Analyzing telemetry datasets to forecast machinery or server faults.' },
+                { icon: 'fa-robot', title: 'Autonomous AI Agents', desc: 'Specialized agentic workers performing automated business workflows.' },
+                { icon: 'fa-comments', title: 'Booking Conversational AI', desc: 'Automating customer intake and scheduling via text/voice AI agents.' }
+            ]
+        }
+    };
+
+    const serviceListContainer = document.getElementById('services-grid-list');
+    const serviceMockupImg = document.getElementById('service-mockup-img');
+    const serviceMockupTitle = document.getElementById('service-mockup-title');
+    const serviceMockupDesc = document.getElementById('service-mockup-desc-text');
+    const servicesTabBtns = document.querySelectorAll('.services-tab-btn');
+
+    function renderServices(categoryKey) {
+        const catData = enterpriseServices[categoryKey];
+        if (!catData) return;
+
+        // Update mockup panel
+        if (serviceMockupImg) serviceMockupImg.src = catData.mockupImage;
+        if (serviceMockupTitle) serviceMockupTitle.innerText = catData.title;
+        if (serviceMockupDesc) serviceMockupDesc.innerText = catData.mockupDesc;
+
+        // Render grid items
+        if (serviceListContainer) {
+            serviceListContainer.innerHTML = catData.list.map((srv, idx) => `
+                <div class="service-card-item" data-index="${idx}" data-category="${categoryKey}">
+                    <div class="icon-box"><i class="fa-solid ${srv.icon}"></i></div>
+                    <h4>${srv.title}</h4>
+                    <p>${srv.desc}</p>
+                    <a href="#" class="learn-more">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            `).join('');
+
+            // Add Click Listeners to dynamically rendered items
+            serviceListContainer.querySelectorAll('.service-card-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const cat = item.getAttribute('data-category');
+                    const idx = parseInt(item.getAttribute('data-index'));
+                    openServiceDetail(cat, idx);
+                });
+            });
+        }
+    }
+
+    // Tab switcher events
+    servicesTabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            servicesTabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const targetCat = btn.getAttribute('data-tab');
+            renderServices(targetCat);
+        });
+    });
+
+    // Render initial category (cybersecurity)
+    if (servicesTabBtns.length > 0) {
+        renderServices('cyber');
+    }
 
     /* --- Service Detail Modal Logic --- */
     const serviceModal = document.getElementById('service-modal');
@@ -213,137 +348,68 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalTitle = document.getElementById('modal-service-title');
     const modalDesc = document.getElementById('modal-service-description');
 
-    // Service Data with African Themed AI Illustrations
-    const serviceData = {
-        'nlp': {
-            title: 'NLP Solutions',
-            description: `<p><strong>Unlock the Power of Language.</strong> Our Natural Language Processing (NLP) solutions go beyond simple chatbots. We build intelligent systems that understand context, sentiment, and intent in real-time.</p>
-                          <p>Imagine a customer support system that handles 80% of inquiries automatically, or a legal analysis tool that scans thousands of compliance documents in seconds. Our NLP agents can draft emails, summarize meetings, and even translate local dialects to bridge communication gaps across Africa.</p>`,
-            image: 'images/ecommerce_support_ai_african_1767033018478.png'
-        },
-
-        'booking': {
-            title: 'Booking Conversational AI',
-            description: `<p><strong>24/7 Intelligent Scheduling.</strong> Automate appointment booking with our advanced conversational AI that handles voice and text interactions seamlessly.</p>
-                          <p>A medical clinic reduced admin time by 60% using our Appointment Bot (pictured). It negotiates times, sends reminders, and syncs with doctors' calendars 24/7, ensuring no slot is wasted and patients are always seen on time.</p>`,
-            image: 'images/african_receptionist_robot.png'
-        },
-
-        'chatbots': {
-            title: 'AI Chatbots',
-            description: `<p><strong>Intelligent Customer Engagement.</strong> Deploy conversational AI agents that understand context, provide instant answers, and deliver exceptional customer experiences around the clock.</p>
-                          <p>Our AI chatbots handle customer inquiries, product recommendations, troubleshooting, and support tickets with human-like understanding. They learn from every interaction, integrate with your existing systems, and can escalate complex issues to human agents when needed. Reduce response times from hours to seconds while maintaining a personal touch.</p>`,
-            image: 'images/ai_chatbot_interface.png'
-        },
-
+    // Detailed Descriptions for modal popups
+    const serviceDetails = {
         'cyber': {
-            title: 'Cybersecurity & Digital Forensics',
-            description: `<p><strong>Advanced Threat Detection and Mitigation.</strong> Protect your business assets, data, and user trust with our AI-driven security operations and forensics.</p>
-                          <p>We deploy proactive defensive agents that monitor logs, detect anomalies, and auto-quarantine threats in real-time. In the event of a breach, our digital forensics tools reconstruct timelines, isolate vulnerabilities, and provide comprehensive compliance reporting to ensure your operations remain secure, resilient, and fully compliant.</p>`,
-            image: 'images/cybersecurity_forensics.png'
+            'Unified EDR/XDR': 'Proactive protection, monitoring threats across server assets, computer interfaces, and user terminals. Includes automatic firewall isolated routing.',
+            'Identity & Access (IAM)': 'Enterprise zero trust configurations integrating secure Single-Sign-On and automated biometric policies across local networks.',
+            'Penetration Testing': 'Simulating active security bypass scenarios to test server room networks, data pipelines, and customer login interfaces.',
+            'Managed SOC (24/7)': 'Constant oversight and system auditing by local cybersecurity team. Automatic warning logs are cataloged on hard disk.',
+            'Cloud Security (CSPM)': 'Continuous monitoring of cloud asset configurations to prevent open server leaks on AWS, GCP, and Azure.'
         },
-
-        'webapps': {
-            title: 'Web Applications',
-            description: `<p><strong>Next-Gen Digital Platforms.</strong> We don't just build websites; we build powerful, scalable web applications that run your business logic in the cloud.</p>
-                          <p>Whether it's a fintech dashboard, a telemedicine portal, or an e-learning platform, our web apps are built with modern frameworks (React/Next.js) for speed, security, and scalability. Provide your users with a app-like experience directly in their browser.</p>`,
-            image: 'images/kenya_semiconductors_webapp.png'
+        'cloud': {
+            'Cloud Migration': 'Zero-downtime transfers of business records, web assets, and operational logs to cloud servers.',
+            'Kubernetes & DevOps': 'Configuring scalable server architectures and deployment automations to handle enterprise traffic spikes.'
         },
-        'websites': {
-            title: 'Business Websites',
-            description: `<p><strong>Your Digital Headquarters.</strong> In the digital age, your website is your most important asset. We create stunning, high-performance websites that convert visitors into clients.</p>
-                          <p>A professional website establishes trust. We use modern design principles (Glassmorphism, 3D elements) to ensure you stand out from competitors. Our sites are SEO-optimized, mobile-responsive, and integrated with your CRM for lead capture.</p>`,
-            image: 'images/africa_fintech_website.png'
+        'forensics': {
+            'Biometric Auth': 'Configuring Iris scan and Face validation interfaces. Blended imagery ensures inclusive system integration.',
+            'Computer Forensics': 'Reconstructing forensic timelines of breaches on computer workstations, recovering deleted system logs, and compiling chain of custody reports.'
         },
-
-        'social': {
-            title: 'Social Media Autopilot',
-            description: `<p><strong>Engage Everywhere, Instantly.</strong> Manage your brand presence across all platforms with a single AI agent.</p>
-                          <p>Our Social Media Autopilot doesn't just post; it replies to comments, engages with trends, and analyzes sentiment. It's like having a dedicated 24/7 social media manager that ensures your brand voice is always active and relevant.</p>`,
-            image: 'images/social_media_ai_dashboard.png'
+        'surveillance': {
+            'IP CCTV Networks': 'Deploying high-definition surveillance camera grids mapped securely to localized physical control rooms.',
+            'AI Video Analytics': 'Using computer vision algorithms on server nodes to identify unrecognized intrusions, unauthorized vehicles, and perimeter breeches.'
         },
-
-        'agent': {
-            title: 'Custom AI Agents',
-            description: `<p><strong>Your Dedicated Digital Workforce.</strong> Need a specialized solution? We build custom AI agents trained on your specific data and workflows.</p>
-                          <p>From internal HR bots to complex supply chain predictors, we design the "brain" of your operation. These agents learn from your processes and improve over time, becoming an indispensable asset to your company.</p>`,
-            image: 'images/collaborative_ai_agents.png'
+        'networking': {
+            'SD-WAN Architectures': 'Enterprise high-availability networking layouts linking remote corporate branch offices with active load-balancing routing.'
         },
-
-        'sweetstay': {
-            title: 'SweetStay - Air BnB Booking System',
-            description: `<p><strong>Air BnB Booking System</strong></p>
-                          <p>SweetStay is a modern, lightweight booking management system designed specifically for Airbnbs, guest houses, and serviced apartments. By leveraging a powerful "serverless" architecture, it offers a premium, mobile-first booking experience for guests and a comprehensive administration dashboard for hosts—all without the monthly subscription fees of traditional SaaS platforms.</p>
-                          <p>Transform your property management with a system that combines the visual appeal of a luxury hotel site with the automated efficiency of a modern tech stack.</p>
-                          <h4>Key Features</h4>
-                          <ul style="list-style-type: disc; margin-left: 20px; color: var(--color-text-muted);">
-                              <li>Stunning Mobile-First Design</li>
-                              <li>Smart Booking Engine</li>
-                              <li>Location integration (Google Maps)</li>
-                              <li>Intelligent Automation</li>
-                              <li>Double-Booking Protection</li>
-                              <li>Zero-Maintenance Database</li>
-                              <li>Automated Calendar Sync</li>
-                              <li>Powerful Admin Dashboard</li>
-                              <li>No Monthly Fees</li>
-                              <li>Lightweight & Fast</li>
-                          </ul>`,
-            image: 'images/sweetstay_logo.png'
+        'ai': {
+            'Custom LLMs & RAG': 'Deploying localized Large Language Models running RAG configurations to search corporate data archives privately on local systems.',
+            'Autonomous AI Agents': 'Designing autonomous workspace workflows where custom AI agents interact to write documents, coordinate sales operations, or log events.'
         }
     };
 
-    function openServiceModal(key) {
-        const data = serviceData[key];
-        if (!data) return;
+    function openServiceDetail(category, index) {
+        const catData = enterpriseServices[category];
+        if (!catData) return;
+        const item = catData.list[index];
+        if (!item) return;
 
-        if (modalTitle) modalTitle.innerText = data.title;
-        if (modalDesc) modalDesc.innerHTML = data.description;
-        if (modalImage) modalImage.src = data.image;
+        // Get details or fallback to default
+        const detailText = (serviceDetails[category] && serviceDetails[category][item.title]) || 
+                           `${item.desc} TechBrain AI designs, configures, and deploys this specialized service to ensure maximum performance, rock-solid security, and seamless integration with your existing business workflows.`;
+
+        if (modalTitle) modalTitle.innerText = item.title;
+        if (modalImage) modalImage.src = catData.mockupImage;
+        if (modalDesc) {
+            modalDesc.innerHTML = `
+                <p><strong>Service Catalog:</strong> ${catData.title}</p>
+                <p>${detailText}</p>
+                <h4 style="margin: 20px 0 10px; color: var(--color-accent);">Enterprise Highlights</h4>
+                <ul style="list-style: disc; margin-left: 20px; color: var(--color-text-muted);">
+                    <li>Optimized for low-bandwidth environments</li>
+                    <li>24/7 Security Operations Center monitoring integration</li>
+                    <li>Zero-trust validation architecture</li>
+                    <li>Full compliance auditing trails logged on local server</li>
+                </ul>
+            `;
+        }
 
         if (serviceModal) {
             serviceModal.style.display = 'flex';
-            // Trigger reflow
             serviceModal.offsetHeight;
             serviceModal.classList.add('show');
         }
     }
-
-    // Expose for HTML access
-    window.openServiceModal = openServiceModal;
-
-    // Attach Click Listeners
-    document.querySelectorAll('.service-card').forEach(card => {
-        const titleElement = card.querySelector('h3');
-        if (!titleElement) return;
-
-        const title = titleElement.innerText;
-        const btn = card.querySelector('.learn-more');
-
-        let key = '';
-        if (title.includes('NLP')) key = 'nlp';
-        else if (title.includes('Booking')) key = 'booking';
-        else if (title.includes('Chatbot')) key = 'chatbots';
-        else if (title.includes('Cybersecurity')) key = 'cyber';
-
-        else if (title.includes('Web App')) key = 'webapps';
-        else if (title.includes('Business Web')) key = 'websites';
-
-        else if (title.includes('Social')) key = 'social';
-
-        else if (title.includes('Agent')) key = 'agent';
-        else if (title.includes('SweetStay')) key = 'sweetstay';
-        else if (title.includes('Other')) key = 'agent'; // Fallback
-
-        if (key) {
-            // Make the entire card clickable
-            card.style.cursor = 'pointer'; // Ensure JS enforces it too
-            card.addEventListener('click', (e) => {
-                // Prevent default anchor behavior if they clicked the button inside
-                if (e.target.tagName === 'A') e.preventDefault();
-                openServiceModal(key);
-            });
-        }
-    });
 
     if (closeServiceModal) {
         closeServiceModal.addEventListener('click', () => {
@@ -364,8 +430,120 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    /* --- Portfolio Section --- */
-    // Web Applications Data
+    /* --- Dynamic Tech and AI News Fetcher --- */
+    async function fetchTechNews() {
+        const feedUrl = 'https://techcabal.com/feed';
+        // Use rss2json API proxy to bypass CORS
+        const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+        
+        const tickerContainer = document.getElementById('news-ticker-briefs');
+        const cardsContainer = document.getElementById('news-cards-feed');
+
+        const fallbackNews = [
+            {
+                title: "Senegal Launches Sovereignty AI Supercomputer and Data Storage Facility",
+                pubDate: "2026-06-10 09:00:00",
+                link: "https://techcabal.com/",
+                description: "Senegal's government has commissioned a high-density supercomputer center to host AI infrastructure locally, helping startups keep sovereign data on the continent.",
+                categories: ["AI Infrastructure"]
+            },
+            {
+                title: "South Africa Promotes AI Solutions in Rural Healthcare Diagnostics",
+                pubDate: "2026-06-08 14:15:00",
+                link: "https://techcabal.com/",
+                description: "Clinics in Eastern Cape are deploying AI diagnostics tools to analyze X-rays, speeding up tuberculosis detection from days to under ten minutes.",
+                categories: ["HealthTech"]
+            },
+            {
+                title: "Kenya Enacts Comprehensive Data Shield & Zero Trust Framework",
+                pubDate: "2026-06-06 11:30:00",
+                link: "https://techcabal.com/",
+                description: "Kenya's technology regulatory authority has published rules enforcing zero trust protocols for financial and cloud data, boosting cybersecurity requirements.",
+                categories: ["Cybersecurity"]
+            },
+            {
+                title: "African Developers Build Open-Source LLMs for Indigenous Languages",
+                pubDate: "2026-06-03 16:45:00",
+                link: "https://techcabal.com/",
+                description: "A collaborative effort has resulted in new generative models trained on Swahili, Yoruba, and Zulu, reducing language barriers in conversational systems.",
+                categories: ["Generative AI"]
+            },
+            {
+                title: "Nigeria's Tech Hubs Witness Surge in Venture Funding for Enterprise AI",
+                pubDate: "2026-06-01 10:00:00",
+                link: "https://techcabal.com/",
+                description: "Startups building local LLM agent systems and RAG database architectures in Lagos secured major funding rounds from global enterprise investors.",
+                categories: ["Venture Capital"]
+            }
+        ];
+
+        try {
+            const response = await fetch(proxyUrl);
+            if (!response.ok) throw new Error("RSS Proxy response failed");
+            const data = await response.json();
+            
+            if (data.status === 'ok' && data.items && data.items.length > 0) {
+                renderNewsContent(data.items.slice(0, 3), data.items.slice(0, 6));
+            } else {
+                renderNewsContent(fallbackNews.slice(0, 3), fallbackNews);
+            }
+        } catch (error) {
+            console.warn("Dynamic news fetch failed, loading secure fallback.", error);
+            renderNewsContent(fallbackNews.slice(0, 3), fallbackNews);
+        }
+    }
+
+    function renderNewsContent(cardNews, tickerNews) {
+        const tickerContainer = document.getElementById('news-ticker-briefs');
+        const cardsContainer = document.getElementById('news-cards-feed');
+
+        if (tickerContainer) {
+            tickerContainer.innerHTML = tickerNews.map(article => {
+                const dateObj = new Date(article.pubDate);
+                const timeStr = dateObj.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+                return `
+                    <div class="news-ticker-item">
+                        <div class="news-ticker-meta">[INTEL BRIEFING | ${timeStr}]</div>
+                        <div>${article.title}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        if (cardsContainer) {
+            cardsContainer.innerHTML = cardNews.map(article => {
+                const dateObj = new Date(article.pubDate);
+                const dateStr = dateObj.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+                const tag = article.categories && article.categories.length > 0 ? article.categories[0] : 'TECH NEWS';
+                
+                // Strip HTML and truncate
+                const rawDesc = article.description || '';
+                const cleanDesc = rawDesc.replace(/<[^>]*>/g, '').trim();
+                const shortDesc = cleanDesc.length > 130 ? cleanDesc.substring(0, 130) + '...' : cleanDesc || 'Click to view the full details of this technological development.';
+
+                return `
+                    <div class="news-item-card glass-panel">
+                        <div class="news-item-content">
+                            <div class="news-item-tag">${tag}</div>
+                            <h3 class="news-item-title">${article.title}</h3>
+                            <p class="news-item-summary">${shortDesc}</p>
+                        </div>
+                        <a href="${article.link}" target="_blank" class="news-item-action">
+                            Source Coverage <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem;"></i>
+                        </a>
+                    </div>
+                `;
+            }).join('');
+        }
+    }
+
+    // Fetch news on load
+    fetchTechNews();
+
+    /* --- Client Apps Mock Login Modal --- */
+    const loginModal = document.getElementById('login-modal');
+    const closeLoginModal = document.querySelector('.close-login-modal');
+
     const webApplications = {
         'mydoc': {
             name: 'myDOC',
@@ -376,47 +554,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Tab Switching
-    const portfolioTabs = document.querySelectorAll('.portfolio-tab');
-    const portfolioContents = document.querySelectorAll('.portfolio-content');
-
-    portfolioTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const targetTab = tab.getAttribute('data-tab');
-
-            // Remove active class from all tabs and contents
-            portfolioTabs.forEach(t => t.classList.remove('active'));
-            portfolioContents.forEach(c => c.classList.remove('active'));
-
-            // Add active class to clicked tab and corresponding content
-            tab.classList.add('active');
-            document.getElementById(`${targetTab}-content`).classList.add('active');
-        });
-    });
-
-    // Login Modal Functionality
-    const loginModal = document.getElementById('login-modal');
-    const closeLoginModal = document.querySelector('.close-login-modal');
-
     window.openLoginModal = function (appKey) {
         const app = webApplications[appKey];
         if (!app) return;
 
-        // Populate modal content
         document.getElementById('login-app-name').innerText = `${app.name} Login`;
         document.getElementById('login-instructions-text').innerText = app.instructions;
         document.getElementById('login-email').innerText = app.email;
         document.getElementById('login-password').innerText = app.password;
         document.getElementById('open-app-btn').href = app.url;
 
-        // Show modal
-        loginModal.style.display = 'flex';
-        setTimeout(() => {
-            loginModal.classList.add('show');
-        }, 10);
+        if (loginModal) {
+            loginModal.style.display = 'flex';
+            setTimeout(() => {
+                loginModal.classList.add('show');
+            }, 10);
+        }
     };
 
-    // Close login modal
     if (closeLoginModal) {
         closeLoginModal.addEventListener('click', () => {
             loginModal.classList.remove('show');
@@ -426,7 +581,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Close on outside click
     window.addEventListener('click', (e) => {
         if (e.target == loginModal) {
             loginModal.classList.remove('show');
@@ -436,26 +590,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Copy to Clipboard Function
     window.copyToClipboard = function (elementId) {
         const element = document.getElementById(elementId);
         const text = element.innerText;
 
-        // Create temporary textarea
         const textarea = document.createElement('textarea');
         textarea.value = text;
         textarea.style.position = 'fixed';
         textarea.style.opacity = '0';
         document.body.appendChild(textarea);
 
-        // Select and copy
         textarea.select();
         document.execCommand('copy');
-
-        // Remove textarea
         document.body.removeChild(textarea);
 
-        // Visual feedback
         const copyBtn = event.target.closest('.copy-btn');
         const originalHTML = copyBtn.innerHTML;
         copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
@@ -469,70 +617,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
     };
 
+    /* --- Booking Form Submission --- */
+    const bookingForm = document.getElementById('booking-form');
+    const successModal = document.getElementById('modal');
+    const closeSuccessModal = document.querySelector('.close-modal');
 
-
-    /* --- 3D Rotating Carousel Logic --- */
-    const carouselScene = document.querySelector('.scene');
-    const carousel3D = document.querySelector('.carousel-3d');
-
-    if (carousel3D) {
-        const cells = carousel3D.querySelectorAll('.client-card');
-        const cellCount = cells.length;
-        // Width of card (460) + Gap (40) = 500
-        const effectiveWidth = 500;
-        const theta = 360 / cellCount;
-        const radius = Math.round((effectiveWidth / 2) / Math.tan(Math.PI / cellCount));
-
-        // Apply initial transforms to distribute cards
-        cells.forEach((cell, i) => {
-            const cellAngle = theta * i;
-            // Push out by radius and rotate
-            cell.style.transform = `rotateY(${cellAngle}deg) translateZ(${radius}px)`;
-        });
-
-        // Initialize carousel position - push back by radius so front face is at Z=0
-        // And rotate
-        let currAngle = 0;
-        let isPaused = false;
-
-        function rotate3DCarousel() {
-            if (!isPaused) {
-                currAngle -= 0.2; // Slower rotation for larger circle
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Show Success Modal
+            if (successModal) {
+                successModal.style.display = 'flex';
             }
-            // Rotate the whole carousel
-            // TranslateZ moves the center of rotation back
-            carousel3D.style.transform = `translateZ(-${radius}px) rotateY(${currAngle}deg)`;
-            requestAnimationFrame(rotate3DCarousel);
-        }
-
-        // Pause on hover
-        carouselScene.addEventListener('mouseenter', () => {
-            isPaused = true;
+            bookingForm.reset();
         });
-
-        carouselScene.addEventListener('mouseleave', () => {
-            isPaused = false;
-        });
-
-        // Click to navigate
-        cells.forEach(cell => {
-            cell.style.cursor = 'pointer'; // Ensure pointer cursor
-            cell.addEventListener('click', (e) => {
-                // If specific button clicked, let it handle it (standard propagation)
-                // But typically the button is inside.
-                // We want to open the link found in the card.
-                const link = cell.querySelector('a');
-                if (link && link.href) {
-                    // Check if user clicked the link itself to avoid double open
-                    if (e.target.closest('a') === link) return;
-
-                    window.open(link.href, link.target || '_self');
-                }
-            });
-        });
-
-        // Start animation
-        rotate3DCarousel();
     }
+
+    if (closeSuccessModal) {
+        closeSuccessModal.addEventListener('click', () => {
+            if (successModal) successModal.style.display = 'none';
+        });
+    }
+
+    window.addEventListener('click', (e) => {
+        if (e.target == successModal) {
+            successModal.style.display = 'none';
+        }
+    });
 
 });

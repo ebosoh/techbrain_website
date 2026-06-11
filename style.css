@@ -309,76 +309,207 @@ nav {
 
 /* Services Section */
 /* Services Section - Carousel */
-.services-carousel {
-    overflow: hidden;
-    position: relative;
-    padding: 20px 0;
-    margin-top: 50px;
-    /* Masking for fade effect on edges */
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-}
-
-.services-track {
+/* Services Section - Tabbed Catalog Directory */
+.services-mega-container {
     display: flex;
-    gap: 30px;
-    width: max-content;
-    /* Animation handled by JS for seamless loop or CSS infinite */
-    /* animation: scroll 40s linear infinite; */
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 50px;
 }
 
-/* Pause on hover if desired */
-/* .services-track:hover {
-    animation-play-state: paused;
-} */
+.services-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 10px;
+}
 
-.service-card {
+.services-tab-btn {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 12px 28px;
+    color: var(--color-text-muted);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    cursor: pointer;
     transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.services-tab-btn i {
+    font-size: 1.1rem;
+    color: var(--color-secondary);
+    transition: var(--transition);
+}
+
+.services-tab-btn:hover,
+.services-tab-btn.active {
+    border-color: var(--color-accent);
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.25);
+    background: rgba(0, 180, 216, 0.1);
+}
+
+.services-tab-btn:hover i,
+.services-tab-btn.active i {
+    color: var(--color-accent);
+    transform: scale(1.1);
+}
+
+.services-display-panel {
+    display: none;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 40px;
+    animation: fadeIn 0.6s ease;
+}
+
+.services-display-panel.active {
+    display: grid;
+}
+
+.services-grid-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    max-height: 550px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.services-grid-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.services-grid-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.services-grid-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.services-grid-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.service-card-item {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: var(--transition);
+    cursor: pointer;
     position: relative;
     overflow: hidden;
-    min-width: 300px;
-    /* Fixed width for carousel items */
-    max-width: 300px;
-    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
 }
 
-/* @keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-300px * 7 - 30px * 7)); } 
-} */
-
-.service-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--color-secondary);
+.service-card-item:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 255, 204, 0.12);
 }
 
-.icon-box {
-    font-size: 2.5rem;
+.service-card-item .icon-box {
+    font-size: 1.8rem;
     color: var(--color-accent);
-    margin-bottom: 20px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: rgba(0, 255, 204, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 204, 0.1);
 }
 
-.service-card h3 {
+.service-card-item h4 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.service-card-item p {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
     margin-bottom: 15px;
-    font-size: 1.25rem;
 }
 
-.service-card p {
-    margin-bottom: 20px;
-    font-size: 0.95rem;
-}
-
-.learn-more {
+.service-card-item .learn-more {
+    margin-top: auto;
     color: var(--color-secondary);
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     display: inline-flex;
     align-items: center;
     gap: 5px;
 }
 
-.learn-more:hover {
-    gap: 10px;
+.service-card-item:hover .learn-more {
+    color: var(--color-accent);
+}
+
+.service-mockup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-mockup-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.75);
+    z-index: 1;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: var(--transition);
+}
+
+.service-mockup-img:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: var(--color-accent);
+    box-shadow: 0 20px 50px rgba(0, 255, 204, 0.25);
+}
+
+.service-mockup-desc {
+    margin-top: 25px;
+    z-index: 1;
+}
+
+.service-mockup-desc h3 {
+    font-size: 1.4rem;
+    color: var(--color-accent);
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+}
+
+.service-mockup-desc p {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+@media (max-width: 992px) {
+    .services-display-panel {
+        grid-template-columns: 1fr;
+    }
+    .services-grid-list {
+        max-height: none;
+    }
 }
 
 /* Technologies Section */
@@ -1361,105 +1492,281 @@ footer {
     }
 }
 
-/* --- 3D Portfolio Carousel --- */
-.scene {
-    margin: 20px auto;
-    /* More vertical space */
-    width: 500px;
-    /* Increased width */
-    height: 400px;
-    /* Increased height */
+/* --- Brand Logos Ticker (Replacement for 3D Carousel) --- */
+.ticker-section {
+    padding: 40px 0;
+    background: rgba(10, 25, 47, 0.5);
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+    overflow: hidden;
     position: relative;
-    perspective: 1500px;
-    /* Adjusted perspective for larger scene */
 }
 
-.carousel-3d {
-    width: 100%;
+.ticker-section::before,
+.ticker-section::after {
+    content: "";
     height: 100%;
     position: absolute;
-    transform-style: preserve-3d;
-    transition: transform 1s;
+    width: 150px;
+    z-index: 2;
+    pointer-events: none;
 }
 
-.carousel-3d .client-card {
-    position: absolute;
-    width: 460px;
-    /* Much larger width */
-    height: 320px;
-    /* Much larger height */
-    left: 20px;
-    /* Center in 500px container */
-    top: 20px;
-    /* Gradient to simulate curvature/lighting */
-    background: linear-gradient(90deg, rgba(5, 15, 30, 0.95), rgba(10, 25, 47, 0.9), rgba(5, 15, 30, 0.95));
-    border: 1px solid var(--color-secondary);
+.ticker-section::before {
+    left: 0;
+    top: 0;
+    background: linear-gradient(to right, #0a192f 0%, transparent 100%);
+}
+
+.ticker-section::after {
+    right: 0;
+    top: 0;
+    background: linear-gradient(to left, #0a192f 0%, transparent 100%);
+}
+
+.ticker-container {
+    overflow: hidden;
+    white-space: nowrap;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    padding: 30px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-    /* Deeper shadow */
-    border-radius: 20px;
-    /* Smoother corners */
+}
+
+.ticker-track {
+    display: flex;
+    gap: 40px;
+    width: max-content;
+    animation: scrollTicker 35s linear infinite;
+}
+
+.ticker-track:hover {
+    animation-play-state: paused;
+}
+
+.ticker-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 28px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
     cursor: pointer;
-    /* Clickable indication */
+    transition: var(--transition);
 }
 
-.carousel-3d .client-card:hover {
-    box-shadow: 0 0 40px rgba(0, 255, 204, 0.5);
+.ticker-card:hover {
     border-color: var(--color-accent);
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+    transform: translateY(-2px);
 }
 
-.carousel-3d .client-card h3 {
-    font-size: 1.8rem;
-    /* Larger font */
-    margin-bottom: 10px;
-}
-
-.carousel-3d .client-card .client-location {
-    font-size: 1.1rem;
-    /* Larger font */
-    margin-bottom: 25px;
-}
-
-.carousel-3d .client-card .btn {
-    padding: 12px 24px;
-    font-size: 1rem;
-}
-
-.client-logo {
-    width: 100%;
-    height: 80px;
+.ticker-logo-box {
+    width: 100px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    padding: 10px;
 }
 
-.client-logo img {
+.ticker-logo-box img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+    filter: grayscale(100%) brightness(0.85);
+    transition: var(--transition);
 }
 
-@media (max-width: 600px) {
-    .scene {
-        transform: scale(0.6);
-        margin-top: -60px;
-        margin-bottom: -60px;
-        transform-origin: center center;
-        /* Ensure container handles the scaled content properly */
-        width: 100%;
-    }
+.ticker-card:hover .ticker-logo-box img {
+    filter: grayscale(0%) brightness(1);
+}
 
-    .carousel-3d {
-        /* Ensure touch interactions work well */
-        touch-action: pan-y;
+.ticker-logo-box i {
+    font-size: 1.8rem;
+    color: var(--color-text-muted);
+    transition: var(--transition);
+}
+
+.ticker-card:hover .ticker-logo-box i {
+    color: var(--color-secondary);
+}
+
+.ticker-card-info {
+    text-align: left;
+}
+
+.ticker-card-info h4 {
+    font-size: 0.95rem;
+    margin: 0;
+    color: #ffffff;
+}
+
+.ticker-card-info p {
+    font-size: 0.75rem;
+    margin: 2px 0 0 0;
+    color: var(--color-text-muted);
+}
+
+@keyframes scrollTicker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* --- Live Tech News briefing panel --- */
+.news-section {
+    position: relative;
+    z-index: 1;
+    background: radial-gradient(circle at bottom right, rgba(0, 255, 204, 0.03), transparent 45%);
+}
+
+.news-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 40px;
+    align-items: stretch;
+    margin-top: 40px;
+}
+
+@media (max-width: 992px) {
+    .news-grid-container {
+        grid-template-columns: 1fr;
     }
+}
+
+.news-brief-panel {
+    background: rgba(5, 12, 24, 0.85);
+    border: 1px solid var(--color-secondary);
+    border-radius: 16px;
+    padding: 30px;
+    font-family: 'Courier New', Courier, monospace;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 400px;
+}
+
+.news-brief-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 180, 216, 0.3);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+.news-brief-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+}
+
+.news-brief-status {
+    font-size: 0.8rem;
+    color: #ff3838;
+    animation: blink 1.5s infinite;
+}
+
+.news-brief-ticker {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 300px;
+    padding-right: 5px;
+}
+
+.news-brief-ticker::-webkit-scrollbar {
+    width: 4px;
+}
+
+.news-brief-ticker::-webkit-scrollbar-thumb {
+    background: rgba(0, 180, 216, 0.3);
+    border-radius: 2px;
+}
+
+.news-ticker-item {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    border-left: 2px solid var(--color-accent);
+    padding-left: 12px;
+    color: #e0e6ed;
+}
+
+.news-ticker-meta {
+    font-weight: bold;
+    color: var(--color-secondary);
+    margin-bottom: 2px;
+}
+
+.news-cards-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.news-item-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.news-item-card:hover {
+    border-color: var(--color-secondary);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 180, 216, 0.2);
+}
+
+.news-item-content {
+    padding: 24px;
+    flex-grow: 1;
+}
+
+.news-item-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: var(--color-accent);
+    margin-bottom: 10px;
+}
+
+.news-item-title {
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+    color: #ffffff;
+    line-height: 1.4;
+}
+
+.news-item-summary {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+.news-item-action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 24px;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid var(--glass-border);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+    transition: var(--transition);
+}
+
+.news-item-card:hover .news-item-action {
+    background: rgba(0, 180, 216, 0.05);
+    color: var(--color-accent);
 }
