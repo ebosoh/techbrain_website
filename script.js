@@ -249,16 +249,16 @@ document.addEventListener('DOMContentLoaded', () => {
             mockupImage: 'cybersecurity_dashboard.webp',
             mockupDesc: 'Enterprise-grade threat intelligence and unified security defense dashboard, designed to detect, isolate, and mitigate threats in real time.',
             list: [
-                { icon: 'fa-shield-halved', title: 'Unified EDR/XDR', desc: 'Extended detection and response across endpoints, networks, and cloud infrastructures.' },
-                { icon: 'fa-user-lock', title: 'Identity & Access (IAM)', desc: 'Zero-trust identity verification, Single Sign-On, and multi-factor access protocols.' },
-                { icon: 'fa-bug', title: 'Penetration Testing', desc: 'Active white-hat hacking assessments to uncover system and application vulnerabilities.' },
-                { icon: 'fa-network-wired', title: 'Managed SOC (24/7)', desc: 'Continuous security operations monitoring, triage, and threat mitigation.' },
-                { icon: 'fa-cloud-shield', title: 'Cloud Security (CSPM)', desc: 'Posture management and vulnerability scanning for multi-cloud deployments.' },
-                { icon: 'fa-mask', title: 'Threat Hunting', desc: 'Proactive search for advanced persistent threats embedded in network structures.' },
-                { icon: 'fa-triangle-exclamation', title: 'Incident Response', desc: 'Rapid containment, malware analysis, and disaster recovery following security breaches.' },
-                { icon: 'fa-file-shield', title: 'Compliance & Audits', desc: 'Aligning enterprise security frameworks with ISO 27001, GDPR, and local regulations.' },
-                { icon: 'fa-user-shield', title: 'Security Training', desc: 'Phishing simulations and cybersecurity training programs for organizational staff.' },
-                { icon: 'fa-key', title: 'Data Encryption', desc: 'End-to-end data encryption protocols for storage databases and transit pipelines.' }
+                { icon: 'fa-shield-halved', title: 'Unified EDR/XDR', desc: 'Extended detection and response across endpoints, networks, and cloud infrastructures.', image: 'cybersecurity_dashboard.webp' },
+                { icon: 'fa-user-lock', title: 'Identity & Access (IAM)', desc: 'Zero-trust identity verification, Single Sign-On, and multi-factor access protocols.', image: 'biometrics_mobile.webp' },
+                { icon: 'fa-bug', title: 'Penetration Testing', desc: 'Active white-hat hacking assessments to uncover system and application vulnerabilities.', image: 'cyber_threat_center.webp' },
+                { icon: 'fa-network-wired', title: 'Managed SOC (24/7)', desc: 'Continuous security operations monitoring, triage, and threat mitigation.', image: 'cybersecurity_dashboard.webp' },
+                { icon: 'fa-cloud-shield', title: 'Cloud Security (CSPM)', desc: 'Posture management and vulnerability scanning for multi-cloud deployments.', image: 'cloud_dashboard.webp' },
+                { icon: 'fa-mask', title: 'Threat Hunting', desc: 'Proactive search for advanced persistent threats embedded in network structures.', image: 'cyber_threat_center.webp' },
+                { icon: 'fa-triangle-exclamation', title: 'Incident Response', desc: 'Rapid containment, malware analysis, and disaster recovery following security breaches.', image: 'cybersecurity_forensics.webp' },
+                { icon: 'fa-file-shield', title: 'Compliance & Audits', desc: 'Aligning enterprise security frameworks with ISO 27001, GDPR, and local regulations.', image: 'legal_compliance.webp' },
+                { icon: 'fa-user-shield', title: 'Security Training', desc: 'Phishing simulations and cybersecurity training programs for organizational staff.', image: 'web_applications.webp' },
+                { icon: 'fa-key', title: 'Data Encryption', desc: 'End-to-end data encryption protocols for storage databases and transit pipelines.', image: 'biometrics_mobile.webp' }
             ]
         },
         'cloud': {
@@ -266,12 +266,12 @@ document.addEventListener('DOMContentLoaded', () => {
             mockupImage: 'cloud_dashboard.webp',
             mockupDesc: 'Seamless multi-cloud dashboard connecting Amazon Web Services (AWS), Google Cloud Platform (GCP), and Microsoft Azure deployments.',
             list: [
-                { icon: 'fa-cloud-arrow-up', title: 'Cloud Migration', desc: 'Zero-downtime database and system migrations to public or hybrid clouds.' },
-                { icon: 'fa-cubes', title: 'Kubernetes & DevOps', desc: 'Infrastructure as Code (IaC) and CI/CD pipelines for automated scaling.' },
-                { icon: 'fa-chart-line', title: 'Cost Optimization', desc: 'FinOps audits to eliminate cloud waste and scale resource usage efficiently.' },
-                { icon: 'fa-server', title: 'AWS Cloud Architecture', desc: 'High-availability architecture design using Amazon Web Services.' },
-                { icon: 'fa-brands fa-google', title: 'Google Cloud Platform', desc: 'AI-centric cloud environments and big data integrations using GCP.' },
-                { icon: 'fa-brands fa-microsoft', title: 'Microsoft Azure', desc: 'Enterprise active directory integrations and hybrid cloud systems via Azure.' }
+                { icon: 'fa-cloud-arrow-up', title: 'Cloud Migration', desc: 'Zero-downtime database and system migrations to public or hybrid clouds.', image: 'cloud_dashboard.webp' },
+                { icon: 'fa-cubes', title: 'Kubernetes & DevOps', desc: 'Infrastructure as Code (IaC) and CI/CD pipelines for automated scaling.', image: 'kenya_semiconductors.webp' },
+                { icon: 'fa-chart-line', title: 'Cost Optimization', desc: 'FinOps audits to eliminate cloud waste and scale resource usage efficiently.', image: 'africa_fintech.webp' },
+                { icon: 'fa-server', title: 'AWS Cloud Architecture', desc: 'High-availability architecture design using Amazon Web Services.', image: 'cloud_dashboard.webp' },
+                { icon: 'fa-brands fa-google', title: 'Google Cloud Platform', desc: 'AI-centric cloud environments and big data integrations using GCP.', image: 'web_applications.webp' },
+                { icon: 'fa-brands fa-microsoft', title: 'Microsoft Azure', desc: 'Enterprise active directory integrations and hybrid cloud systems via Azure.', image: 'cloud_dashboard.webp' }
             ]
         },
         'forensics': {
@@ -279,43 +279,25 @@ document.addEventListener('DOMContentLoaded', () => {
             mockupImage: 'biometrics_mobile.webp',
             mockupDesc: 'Holographic device scanner UI illustrating multi-factor identity authorization and digital evidence extraction protocols.',
             list: [
-                { icon: 'fa-fingerprint', title: 'Biometric Auth', desc: 'Implementing iris scan, facial recognition, and fingerprint authentication nodes.' },
-                { icon: 'fa-laptop-file', title: 'Computer Forensics', desc: 'Post-incident hard drive replication and forensic recovery of lost data.' },
-                { icon: 'fa-mobile-screen-button', title: 'Mobile Forensics', desc: 'Extracting data, messages, and application logs from encrypted mobile devices.' },
-                { icon: 'fa-database', title: 'Database Cryptanalysis', desc: 'Recovering corrupted or ransomware-locked database records securely.' },
-                { icon: 'fa-envelope-open-text', title: 'Network & Email Forensics', desc: 'Tracing headers and routing nodes to isolate source of malicious traffic.' },
-                { icon: 'fa-address-card', title: 'Biometric KYC', desc: 'Automated identity verification systems for banking and security portals.' },
-                { icon: 'fa-user-secret', title: 'Insider Threat Auditing', desc: 'Tracking user behaviors to identify and contain internal data leak points.' },
-                { icon: 'fa-gavel', title: 'Legal Expert Testimony', desc: 'Preparing chain-of-custody documentation and expert testimony for courts.' }
+                { icon: 'fa-fingerprint', title: 'Biometric Auth', desc: 'Implementing iris scan, facial recognition, and fingerprint authentication nodes.', image: 'biometrics_mobile.webp' },
+                { icon: 'fa-laptop-file', title: 'Computer Forensics', desc: 'Post-incident hard drive replication and forensic recovery of lost data.', image: 'cybersecurity_forensics.webp' },
+                { icon: 'fa-mobile-screen-button', title: 'Mobile Forensics', desc: 'Extracting data, messages, and application logs from encrypted mobile devices.', image: 'biometrics_mobile.webp' },
+                { icon: 'fa-database', title: 'Database Cryptanalysis', desc: 'Recovering corrupted or ransomware-locked database records securely.', image: 'cybersecurity_forensics.webp' },
+                { icon: 'fa-envelope-open-text', title: 'Network & Email Forensics', desc: 'Tracing headers and routing nodes to isolate source of malicious traffic.', image: 'cyber_threat_center.webp' },
+                { icon: 'fa-address-card', title: 'Biometric KYC', desc: 'Automated identity verification systems for banking and security portals.', image: 'biometrics_mobile.webp' },
+                { icon: 'fa-user-secret', title: 'Insider Threat Auditing', desc: 'Tracking user behaviors to identify and contain internal data leak points.', image: 'cyber_threat_center.webp' },
+                { icon: 'fa-gavel', title: 'Legal Expert Testimony', desc: 'Preparing chain-of-custody documentation and expert testimony for courts.', image: 'legal_compliance.webp' }
             ]
         },
         'surveillance': {
             title: 'Surveillance & Access Control',
             mockupImage: 'surveillance_tablet.webp',
-            mockupDesc: 'Smart control panel depicting license plate tracking, movement alarms, and physical lock systems on a central interface.',
+            mockupDesc: 'Smart control panel depicting motion sensor status, remote locks, and AI analytics on a central interface.',
             list: [
-                { icon: 'fa-video', title: 'IP CCTV Networks', desc: 'Designing and deploying high-definition network camera surveillance.' },
-                { icon: 'fa-brain', title: 'AI Video Analytics', desc: 'Machine vision overlays for motion detection, loitering, and virtual fences.' },
-                { icon: 'fa-car', title: 'License Plate (LPR)', desc: 'Automated vehicle tracking, gate opening, and registration plate logging.' },
-                { icon: 'fa-door-closed', title: 'Biometric Doors', desc: 'Access controllers integrated with magnetic locks and readers.' },
-                { icon: 'fa-barcode', title: 'Visitor Management', desc: 'Digital check-ins, guest badge printing, and tracking analytics.' },
-                { icon: 'fa-walkie-talkie', title: 'Perimeter Intrusion', desc: 'Seismic and fiber-optic perimeter detection systems.' },
-                { icon: 'fa-road', title: 'Smart Gates & Barriers', desc: 'RFID vehicle tags and automated rising barriers for parking.' },
-                { icon: 'fa-fire-extinguisher', title: 'Fire System Integration', desc: 'Linking alarms and door releases for secure emergency exits.' },
-                { icon: 'fa-server', title: 'Data Center Access', desc: 'Dual-factor airlocks, rack biometrics, and physical cages.' },
-                { icon: 'fa-bell', title: 'Alarm Monitoring', desc: 'Unified central station software mapping alert locations.' }
-            ]
-        },
-        'networking': {
-            title: 'Networking & Data Centre',
-            mockupImage: 'networking_laptop.webp',
-            mockupDesc: 'Enterprise network diagnostics console showing throughput, SD-WAN topologies, and fiber-optic backbone health.',
-            list: [
-                { icon: 'fa-network-wired', title: 'SD-WAN Architectures', desc: 'Designing highly resilient enterprise WAN layouts with auto-failover.' },
-                { icon: 'fa-bezier-curve', title: 'Data Center Design', desc: 'Building high-availability server rooms with redundancy (N+1 power/cooling).' },
-                { icon: 'fa-wifi', title: 'High-Density Wi-Fi', desc: 'Enterprise wireless surveys, mapping, and secure guest access.' },
-                { icon: 'fa-route', title: 'Structured Cabling', desc: 'Deploying high-speed Cat6A/fiber backbones and patch panels.' },
-                { icon: 'fa-shield-halved', title: 'Firewall Architectures', desc: 'Configuring core BGP routing tables and next-gen hardware firewalls.' }
+                { icon: 'fa-video', title: 'IP CCTV Networks', desc: 'Designing and deploying high-definition network camera surveillance.', image: 'surveillance_tablet.webp' },
+                { icon: 'fa-brain', title: 'AI Video Analytics', desc: 'Machine vision overlays for motion detection, loitering, and virtual fences.', image: 'cyber_threat_center.webp' },
+                { icon: 'fa-door-closed', title: 'Biometric Doors', desc: 'Access controllers integrated with magnetic locks and readers.', image: 'biometrics_mobile.webp' },
+                { icon: 'fa-walkie-talkie', title: 'Perimeter Intrusion', desc: 'Seismic and fiber-optic perimeter detection systems.', image: 'surveillance_tablet.webp' }
             ]
         },
         'ai': {
@@ -323,11 +305,11 @@ document.addEventListener('DOMContentLoaded', () => {
             mockupImage: 'ai_agent_dashboard.webp',
             mockupDesc: 'Holographic display showing an active generative AI agent workflow, combining RAG architectures and model pipelines.',
             list: [
-                { icon: 'fa-brain', title: 'Custom LLMs & RAG', desc: 'Retrieval Augmented Generation pipelines for searching local data corpuses.' },
-                { icon: 'fa-eye', title: 'Computer Vision Systems', desc: 'Image classification, object counting, and quality control systems.' },
-                { icon: 'fa-chart-pie', title: 'Predictive Analytics', desc: 'Analyzing telemetry datasets to forecast machinery or server faults.' },
-                { icon: 'fa-robot', title: 'Autonomous AI Agents', desc: 'Specialized agentic workers performing automated business workflows.' },
-                { icon: 'fa-comments', title: 'Booking Conversational AI', desc: 'Automating customer intake and scheduling via text/voice AI agents.' }
+                { icon: 'fa-brain', title: 'Custom LLMs & RAG', desc: 'Retrieval Augmented Generation pipelines for searching local data corpuses.', image: 'ai_chatbot_interface.webp' },
+                { icon: 'fa-eye', title: 'Computer Vision Systems', desc: 'Image classification, object counting, and quality control systems.', image: 'predictive_maintenance.webp' },
+                { icon: 'fa-chart-pie', title: 'Predictive Analytics', desc: 'Analyzing telemetry datasets to forecast machinery or server faults.', image: 'predictive_maintenance.webp' },
+                { icon: 'fa-robot', title: 'Autonomous AI Agents', desc: 'Specialized agentic workers performing automated business workflows.', image: 'collaborative_agents.webp' },
+                { icon: 'fa-comments', title: 'Booking Conversational AI', desc: 'Automating customer intake and scheduling via text/voice AI agents.', image: 'booking_appointment.webp' }
             ]
         }
     };
@@ -413,9 +395,6 @@ document.addEventListener('DOMContentLoaded', () => {
             'IP CCTV Networks': 'Deploying high-definition surveillance camera grids mapped securely to localized physical control rooms.',
             'AI Video Analytics': 'Using computer vision algorithms on server nodes to identify unrecognized intrusions, unauthorized vehicles, and perimeter breeches.'
         },
-        'networking': {
-            'SD-WAN Architectures': 'Enterprise high-availability networking layouts linking remote corporate branch offices with active load-balancing routing.'
-        },
         'ai': {
             'Custom LLMs & RAG': 'Deploying localized Large Language Models running RAG configurations to search corporate data archives privately on local systems.',
             'Autonomous AI Agents': 'Designing autonomous workspace workflows where custom AI agents interact to write documents, coordinate sales operations, or log events.'
@@ -447,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const detailText = getHumanFriendlyDescription(category, item);
 
         if (modalTitle) modalTitle.innerText = item.title;
-        if (modalImage) modalImage.src = catData.mockupImage;
+        if (modalImage) modalImage.src = item.image || catData.mockupImage;
         if (modalDesc) {
             modalDesc.innerHTML = `
                 <p><strong>Service Catalog:</strong> ${catData.title}</p>
