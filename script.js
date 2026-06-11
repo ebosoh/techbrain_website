@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function resize() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
-            columns = Math.floor(width / 20) + 1;
+            columns = Math.floor(width / 25) + 1;
             yPositions = Array(columns).fill(0).map(() => Math.random() * height);
             colors = Array(columns).fill('normal');
         }
@@ -203,24 +203,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function drawMatrix() {
             // Draw fade transparency for code trails
-            ctx.fillStyle = 'rgba(10, 25, 47, 0.15)';
+            ctx.fillStyle = 'rgba(10, 25, 47, 0.18)';
             ctx.fillRect(0, 0, width, height);
 
-            ctx.font = '15px Courier New';
+            ctx.font = 'bold 20px Courier New';
 
             for (let i = 0; i < columns; i++) {
                 const char = Math.random() < 0.5 ? '0' : '1';
-                const x = i * 20;
+                const x = i * 25;
                 const y = yPositions[i];
 
                 if (colors[i] === 'red') {
-                    ctx.fillStyle = '#ff4d4d';
+                    ctx.fillStyle = '#ff3333';
                 } else if (colors[i] === 'cyan') {
-                    ctx.fillStyle = '#00b4d8';
+                    ctx.fillStyle = '#00d8ff';
                 } else if (colors[i] === 'green') {
                     ctx.fillStyle = '#00ffcc';
                 } else {
-                    ctx.fillStyle = Math.random() < 0.5 ? 'rgba(0, 180, 216, 0.25)' : 'rgba(0, 255, 204, 0.25)';
+                    ctx.fillStyle = Math.random() < 0.5 ? 'rgba(0, 180, 216, 0.6)' : 'rgba(0, 255, 204, 0.6)';
                 }
 
                 ctx.fillText(char, x, y);
