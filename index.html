@@ -38,14 +38,13 @@
     <nav class="glass-panel" id="navbar">
         <div class="container nav-container">
             <a href="#" class="logo">
-                <i class="fa-solid fa-brain"></i> TechBrain <span class="highlight">Enterprise</span>
+                <i class="fa-solid fa-brain"></i> TechBrain <span class="highlight">AI</span>
             </a>
             <div class="nav-links">
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
                 <a href="#services">Services</a>
                 <a href="#news">News</a>
-                <a href="#portfolio">Portfolio</a>
                 <a href="#technologies">Core Tech</a>
                 <a href="#contact">Contact</a>
                 <a href="shule-online.html">Shule Online</a>
@@ -60,12 +59,28 @@
     <!-- Hero Section -->
     <section id="home" class="hero-section">
         <canvas id="particle-canvas"></canvas>
+        <div class="scanner-line"></div>
+        <div class="hacker-alert-overlay">
+            <div class="hacker-alert-box alert-red" id="hero-alert-1" style="top: 20%; left: 8%;">
+                <div class="alert-header"><i class="fa-solid fa-triangle-exclamation"></i> ALERT: SYSTEM INTRUSION</div>
+                <div class="alert-body">Bypass detected on Port 8080. SQL injection payload tracking.</div>
+            </div>
+            <div class="hacker-alert-box alert-cyan" id="hero-alert-2" style="bottom: 22%; right: 8%;">
+                <div class="alert-header"><i class="fa-solid fa-user-shield"></i> TechBrain: Defense</div>
+                <div class="alert-body">TechBrain Analysts tracking hacker IP. Deploying EDR countermeasures.</div>
+            </div>
+            <div class="hacker-alert-box alert-green" id="hero-alert-3" style="top: 25%; right: 12%;">
+                <div class="alert-header"><i class="fa-solid fa-circle-check"></i> STATUS: MITIGATION OK</div>
+                <div class="alert-body">Quarantine complete. Attacking nodes contained. Firewall integrity at 100%.</div>
+            </div>
+        </div>
+        
         <div class="container hero-content">
-            <h1 class="fade-in-up">Futuristic Enterprise Tech <br> from the <span class="gradient-text">Heart of Africa</span></h1>
+            <h1 class="fade-in-up">Pioneering Intelligent Solutions <br> from the <span class="gradient-text">Heart of Africa</span></h1>
             <div class="dynamic-text-wrapper fade-in-up delay-1">
                 <span id="typewriter"></span><span class="cursor">|</span>
             </div>
-            <p class="fade-in-up delay-1" style="max-width: 600px; margin: 0 auto 30px auto; color: var(--color-text-muted); font-size: 1.1rem;">
+            <p class="fade-in-up delay-1" style="max-width: 600px; margin: 0 auto 30px auto; color: var(--color-text-muted); font-size: 1.1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">
                 Powering secure infrastructure, cloud scale, and intelligence models for global enterprises.
             </p>
             <div class="hero-btns fade-in-up delay-2">
@@ -79,7 +94,7 @@
         </div>
     </section>
 
-    <!-- Brand Logos Ticker Section (Redesigned Ticker) -->
+    <!-- Brand Logos & Systems Ticker Section (Redesigned Interactive Ribbon) -->
     <section class="ticker-section">
         <div class="container text-center">
             <h3 style="margin-bottom: 25px; color: var(--color-text-muted); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px;">We Work with Top Brands</h3>
@@ -91,6 +106,24 @@
                         <div class="ticker-card-info">
                             <h4>TechBrain</h4>
                             <p>Nairobi, Kenya</p>
+                        </div>
+                    </div>
+                    <!-- myDOC (Interactive Portal) -->
+                    <div class="ticker-card interactive-ticker-card" onclick="openLoginModal('mydoc')">
+                        <span class="badge-pulse"></span>
+                        <div class="ticker-logo-box"><img src="mydoc_logo.png" alt="myDOC"></div>
+                        <div class="ticker-card-info">
+                            <h4>myDOC Portal</h4>
+                            <p class="interactive-tag"><i class="fa-solid fa-flask"></i> Interactive System</p>
+                        </div>
+                    </div>
+                    <!-- SweetStay (Interactive Portal) -->
+                    <div class="ticker-card interactive-ticker-card" onclick="window.openServiceModal('sweetstay')">
+                        <span class="badge-pulse"></span>
+                        <div class="ticker-logo-box"><img src="SweetHomes.png" alt="SweetStay"></div>
+                        <div class="ticker-card-info">
+                            <h4>SweetStay System</h4>
+                            <p class="interactive-tag"><i class="fa-solid fa-list-check"></i> System Specs</p>
                         </div>
                     </div>
                     <!-- Benno AI -->
@@ -286,47 +319,7 @@
         </div>
     </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="section">
-        <div class="container">
-            <h2 class="section-title text-center">Our Client Portals</h2>
-            <p class="section-subtitle text-center">Explore our custom enterprise software developments and client success deployments.</p>
-
-            <div class="portfolio-tabs">
-                <button class="portfolio-tab active" data-tab="webapps">
-                    <i class="fa-solid fa-code"></i> Active Deployments
-                </button>
-            </div>
-
-            <div class="portfolio-content active" id="webapps-content">
-                <div class="portfolio-grid">
-                    <!-- myDOC -->
-                    <div class="portfolio-card glass-panel">
-                        <div class="portfolio-logo">
-                            <img src="mydoc_logo.png" alt="myDOC Logo">
-                        </div>
-                        <h3>myDOC Portal</h3>
-                        <p>Comprehensive digital healthcare clinic management system with secure patient data logging.</p>
-                        <button class="btn btn-primary glow-effect" onclick="openLoginModal('mydoc')">
-                            <i class="fa-solid fa-flask"></i> Launch System
-                        </button>
-                    </div>
-
-                    <!-- SweetStay -->
-                    <div class="portfolio-card glass-panel">
-                        <div class="portfolio-logo">
-                            <img src="SweetHomes.png" alt="SweetStay Logo">
-                        </div>
-                        <h3>SweetStay System</h3>
-                        <p>Modern lightweight booking management system built for automated hospitality properties.</p>
-                        <button class="btn btn-primary glow-effect" onclick="window.openServiceModal('sweetstay')">
-                            <i class="fa-solid fa-list-check"></i> System Specifications
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Portfolio Merged into Ticker Ribbon -->
 
     <!-- Technologies Section -->
     <section id="technologies" class="section">

@@ -126,76 +126,120 @@ document.addEventListener('DOMContentLoaded', () => {
     if (canvas) {
         const ctx = canvas.getContext('2d');
         let width, height;
-        let particles = [];
+        let yPositions = [];
+        let colors = [];
+        let columns = 0;
 
         function resize() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
+            columns = Math.floor(width / 20) + 1;
+            yPositions = Array(columns).fill(0).map(() => Math.random() * height);
+            colors = Array(columns).fill('normal');
         }
 
         window.addEventListener('resize', resize);
         resize();
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.8;
-                this.vy = (Math.random() - 0.5) * 0.8;
-                this.size = Math.random() * 2 + 1;
-            }
+        let threatState = 0; // 0: Normal, 1: Intrusion, 2: Defense (Containment), 3: Mitigated
+        
+        // Alert boxes DOM links
+        const alert1 = document.getElementById('hero-alert-1');
+        const alert2 = document.getElementById('hero-alert-2');
+        const alert3 = document.getElementById('hero-alert-3');
 
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
+        function cycleThreatTimeline() {
+            // State 1: Intrusion starts (Red)
+            setTimeout(() => {
+                threatState = 1;
+                for (let i = 0; i < columns; i++) {
+                    if (Math.random() < 0.4) colors[i] = 'red';
+                }
+                if (alert1) alert1.classList.add('show');
+                if (alert2) alert2.classList.remove('show');
+                if (alert3) alert3.classList.remove('show');
 
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-            }
-
-            draw() {
-                ctx.fillStyle = 'rgba(0, 255, 204, 0.4)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            const numParticles = Math.min(width < 768 ? 40 : 80, 120);
-            for (let i = 0; i < numParticles; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, width, height);
-
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-
-                for (let j = i; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 150) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(0, 180, 216, ${0.4 * (1 - distance / 150)})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
+                // State 2: Defense containment starts (Cyan)
+                setTimeout(() => {
+                    threatState = 2;
+                    for (let i = 0; i < columns; i++) {
+                        if (colors[i] === 'red' || Math.random() < 0.4) colors[i] = 'cyan';
                     }
+                    if (alert1) alert1.classList.remove('show');
+                    if (alert2) alert2.classList.add('show');
+                    if (alert3) alert3.classList.remove('show');
+
+                    // State 3: Threat Quarantined (Green)
+                    setTimeout(() => {
+                        threatState = 3;
+                        for (let i = 0; i < columns; i++) {
+                            colors[i] = 'green';
+                        }
+                        if (alert1) alert1.classList.remove('show');
+                        if (alert2) alert2.classList.remove('show');
+                        if (alert3) alert3.classList.add('show');
+
+                        // Reset to normal loop after 4 seconds
+                        setTimeout(() => {
+                            threatState = 0;
+                            colors.fill('normal');
+                            if (alert1) alert1.classList.remove('show');
+                            if (alert2) alert2.classList.remove('show');
+                            if (alert3) alert3.classList.remove('show');
+                            
+                            // Re-trigger cycle
+                            cycleThreatTimeline();
+                        }, 4000);
+
+                    }, 5000);
+
+                }, 5000);
+
+            }, 4000);
+        }
+
+        // Start cycle
+        cycleThreatTimeline();
+
+        function drawMatrix() {
+            // Draw fade transparency for code trails
+            ctx.fillStyle = 'rgba(10, 25, 47, 0.15)';
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.font = '15px Courier New';
+
+            for (let i = 0; i < columns; i++) {
+                const char = Math.random() < 0.5 ? '0' : '1';
+                const x = i * 20;
+                const y = yPositions[i];
+
+                if (colors[i] === 'red') {
+                    ctx.fillStyle = '#ff4d4d';
+                } else if (colors[i] === 'cyan') {
+                    ctx.fillStyle = '#00b4d8';
+                } else if (colors[i] === 'green') {
+                    ctx.fillStyle = '#00ffcc';
+                } else {
+                    ctx.fillStyle = Math.random() < 0.5 ? 'rgba(0, 180, 216, 0.25)' : 'rgba(0, 255, 204, 0.25)';
+                }
+
+                ctx.fillText(char, x, y);
+
+                // Speed variables based on colors
+                let speed = 10;
+                if (colors[i] === 'red') speed = 25; // Hacker speed
+                if (colors[i] === 'cyan') speed = 15; // TechBrain override
+
+                yPositions[i] += speed;
+
+                if (yPositions[i] > height && Math.random() > 0.975) {
+                    yPositions[i] = 0;
                 }
             }
-            requestAnimationFrame(animateParticles);
+            requestAnimationFrame(drawMatrix);
         }
-
-        initParticles();
-        animateParticles();
+        
+        drawMatrix();
     }
 
     /* --- Enterprise Services tabbed catalog data --- */
@@ -378,15 +422,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    function getHumanFriendlyDescription(category, item) {
+        if (serviceDetails[category] && serviceDetails[category][item.title]) {
+            return serviceDetails[category][item.title];
+        }
+        
+        const templates = [
+            `Our approach to **${item.title}** focuses on long-term stability and resilience. ${item.desc} This is designed to eliminate operational vulnerabilities and streamline your systems' workflow.`,
+            `We specialize in integrating **${item.title}** directly into your enterprise infrastructure. ${item.desc} This implementation helps keep your critical data pipelines protected, efficient, and fully compliant.`,
+            `By deploying **${item.title}**, we help your organization achieve greater agility and robust security. ${item.desc} This setup is optimized to maximize performance and prevent unexpected system bottlenecks.`,
+            `We offer comprehensive management and deployment for **${item.title}**. ${item.desc} This ensures seamless cross-platform operations and high-speed telemetry across all nodes.`
+        ];
+        
+        const idx = (item.title.length + item.desc.length) % templates.length;
+        return templates[idx];
+    }
+
     function openServiceDetail(category, index) {
         const catData = enterpriseServices[category];
         if (!catData) return;
         const item = catData.list[index];
         if (!item) return;
 
-        // Get details or fallback to default
-        const detailText = (serviceDetails[category] && serviceDetails[category][item.title]) || 
-                           `${item.desc} TechBrain AI designs, configures, and deploys this specialized service to ensure maximum performance, rock-solid security, and seamless integration with your existing business workflows.`;
+        const detailText = getHumanFriendlyDescription(category, item);
 
         if (modalTitle) modalTitle.innerText = item.title;
         if (modalImage) modalImage.src = catData.mockupImage;

@@ -203,6 +203,11 @@ nav {
     overflow: hidden;
     padding-top: 100px;
     padding-bottom: 120px;
+    background-image: linear-gradient(rgba(10, 25, 47, 0.88), rgba(10, 25, 47, 0.94)), url('cyber_threat_center.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 #particle-canvas {
@@ -211,7 +216,99 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: 0;
+}
+
+/* Hacker Alert Simulation Overlay */
+.scanner-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 56, 56, 0.4);
+    box-shadow: 0 0 10px #ff3838;
+    animation: scanGrid 5s linear infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+
+@keyframes scanGrid {
+    0% { top: 0; }
+    40% { background: rgba(255, 56, 56, 0.4); box-shadow: 0 0 10px #ff3838; }
+    50% { background: rgba(0, 180, 216, 0.4); box-shadow: 0 0 10px #00b4d8; }
+    100% { top: 100%; background: rgba(0, 180, 216, 0.4); box-shadow: 0 0 10px #00b4d8; }
+}
+
+.hacker-alert-overlay {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 140px);
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.hacker-alert-box {
+    position: absolute;
+    width: 320px;
+    background: rgba(5, 12, 24, 0.9);
+    border-radius: 10px;
+    padding: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    border-radius: 8px;
+    backdrop-filter: blur(8px);
+}
+
+.alert-red {
+    border: 1px solid #ff3838;
+    color: #ff8585;
+    box-shadow: 0 0 15px rgba(255, 56, 56, 0.2), inset 0 0 10px rgba(255, 56, 56, 0.1);
+}
+
+.alert-cyan {
+    border: 1px solid var(--color-secondary);
+    color: #8be4ff;
+    box-shadow: 0 0 15px rgba(0, 180, 216, 0.2), inset 0 0 10px rgba(0, 180, 216, 0.1);
+}
+
+.alert-green {
+    border: 1px solid var(--color-accent);
+    color: #a3ffeb;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.2), inset 0 0 10px rgba(0, 255, 204, 0.1);
+}
+
+.hacker-alert-box .alert-header {
+    font-weight: bold;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+.hacker-alert-box .alert-body {
+    line-height: 1.4;
+}
+
+.hacker-alert-box.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .hacker-alert-box {
+        width: 250px;
+        font-size: 0.75rem;
+    }
 }
 
 .hero-content {
@@ -1188,116 +1285,46 @@ footer {
     margin-bottom: 40px;
 }
 
-.portfolio-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 50px;
-    flex-wrap: wrap;
-}
-
-.portfolio-tab {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    border: 2px solid var(--glass-border);
-    border-radius: 50px;
-    padding: 15px 35px;
-    color: var(--color-text-muted);
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.portfolio-tab:hover {
-    border-color: var(--color-secondary);
-    color: var(--color-secondary);
-    transform: translateY(-2px);
-}
-
-.portfolio-tab.active {
-    background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
-    color: var(--color-primary);
-    border-color: transparent;
-    box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
-}
-
-.portfolio-content {
-    display: none;
-    animation: fadeIn 0.5s ease;
-}
-
-.portfolio-content.active {
-    display: block;
-}
-
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-    margin-top: 30px;
-}
-
-/* Web Application Cards */
-.portfolio-card {
-    text-align: center;
-    transition: var(--transition);
-    cursor: pointer;
+/* Interactive Ticker & Beacon Pulse Styles */
+.ticker-card {
     position: relative;
-    overflow: hidden;
 }
 
-.portfolio-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--color-secondary);
-    box-shadow: 0 10px 40px rgba(0, 180, 216, 0.3);
+.ticker-card .badge-pulse {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--color-accent);
+    animation: beaconPulse 1.5s infinite;
 }
 
-.portfolio-logo {
-    width: 150px;
-    height: 150px;
-    margin: 0 auto 25px;
-    border-radius: 20px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.02);
-    border: 2px solid var(--glass-border);
+@keyframes beaconPulse {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 15px var(--color-accent); }
+    100% { transform: scale(0.8); opacity: 0.5; }
+}
+
+.ticker-card.interactive-ticker-card {
+    border: 1px dashed var(--color-secondary);
+    background: rgba(0, 180, 216, 0.08);
+}
+
+.ticker-card.interactive-ticker-card:hover {
+    border: 1px solid var(--color-accent);
+    background: rgba(0, 255, 204, 0.12);
+    box-shadow: 0 0 25px rgba(0, 255, 204, 0.35);
+}
+
+.ticker-card .interactive-tag {
+    color: var(--color-accent) !important;
+    font-weight: 600;
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: var(--transition);
-}
-
-.portfolio-card:hover .portfolio-logo {
-    border-color: var(--color-secondary);
-    box-shadow: 0 0 20px rgba(0, 180, 216, 0.3);
-}
-
-.portfolio-logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    padding: 10px;
-}
-
-.portfolio-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    color: var(--color-text);
-}
-
-.portfolio-card p {
-    margin-bottom: 25px;
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
-
-.portfolio-card .btn {
-    margin-top: auto;
+    gap: 4px;
 }
 
 /* Client Website Cards */
@@ -1461,18 +1488,8 @@ footer {
     transform: rotate(90deg);
 }
 
-/* Portfolio Responsive */
+/* Portfolio Responsive Removed */
 @media (max-width: 768px) {
-    .portfolio-tabs {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .portfolio-tab {
-        justify-content: center;
-    }
-
-    .portfolio-grid,
     .client-grid {
         grid-template-columns: 1fr;
     }
