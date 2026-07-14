@@ -168,6 +168,17 @@ nav {
     gap: 10px;
 }
 
+.logo-img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    transition: var(--transition);
+}
+
+.logo:hover .logo-img {
+    transform: scale(1.05);
+}
+
 .logo i {
     color: var(--color-secondary);
 }
